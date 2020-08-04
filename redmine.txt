@@ -20,7 +20,6 @@ TestMPlatform
             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",}
         }
 }
-
     EMAIL_SEND_USERNAME = 'username@163.com'  # 定时任务报告发送邮箱，支持163,qq,sina,企业qq邮箱等，注意需要开通smtp服务
     EMAIL_SEND_PASSWORD = 'password'     # 邮箱密码
     ```
