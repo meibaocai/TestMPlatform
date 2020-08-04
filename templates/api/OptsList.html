@@ -1,0 +1,172 @@
+
+
+<!-- 前后置列表 -->
+<div class=""  id="OptsList" style="border:0.5px solid #2c5023;"    >
+    <!--标记是前置还是后置操作 -->
+    <input type="hidden" id="opts_type"  value="">
+
+    <div class="modal-header">
+                <button type="button" class="btn red icn-only" data-dismiss="modal"  style="float:right" onclick="closeDiv();"><i class="icon-remove icon-white"></i></button>
+                <h3 id="myModalLabel4">前后置操作：</h3>
+    </div>
+    <div class="btn-nav" style="margin-top: 10px;">
+                <input type="text" name="search_key" id="search_key" value="{{ search_key }}" style="margin-left:15px;" >
+                    <button type="button" class="btn green " style="margin-left:15px;margin-top:-10px;" onclick="search_opts()">搜索</button>
+    </div>
+
+    <div style="margin-top: 10px; margin-left: 15px;margin-right: 15px" >
+
+        <table class="table table-striped table-bordered table-hover" >
+        <thead>
+              <tr>
+                  <th>ID</th>
+                  <th>操作名称</th>
+                  <th class="hidden-480">操作</th>
+              </tr>
+        </thead>
+        <tbody >
+      {% for opts in pages %}
+
+        <tr class="odd gradeX">
+            <td class="hidden-480" style="color: #246ee5">{{ opts.id }}</td>
+            <td class="hidden-480" style="color: #246ee5">{{ opts.name }}</td>
+            <td class="center hidden-480">
+                <a href="javascript:void(0)" id="AddOpts" onclick="AddOpts({{ opts.id }},'{{ opts.name }}');">添加</a>
+            </td>
+        </tr>
+      {% endfor %}
+
+      <!-- 分页 -->
+        <table class="table" id="opts_num">
+          <ul class="breadcrumb">
+              {% if pages.has_previous %}
+                  <li class="long">
+                      <a href="javascript:alert();return false;"  id="previous_page_post">上一页</a>
+
+                      <script>
+                          var search_key =  $("#search_key").val();
+
+                              $("#previous_page_post").on("click",function(event){
+                                event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)
+                                $.ajax({
+                                       type: "POST",
+                                       url: "/api/OperationList",
+                                       data: {
+                                                            "page_num" : {{ pages.previous_page_number |safe }},
+                                                            "search_key" :search_key,
+
+                                                        },
+                                       timeout: 1000, //超时时间设置，单位毫秒
+                                       beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+
+                                       success: function(res){
+                                          //请求正确之后的操作
+                                            $("#OptsList").html(res);
+                                            $("#OptsList").show();
+                                       },
+                                       error: function(result){
+                                          //请求失败之后的操作
+                                       }
+                                });
+                              });
+                      </script>
+
+                  </li>
+              {% endif %}
+
+              {% for num in pages.paginator.page_range %}
+                  <li {% if num == pages.number %}class="active " {% endif %} >
+                  <a href="javascript:void(0);" id="num" onclick="num_post(this)";>{{ num }}</a></li>
+                  </li>
+              {% endfor %}
+
+              {% if pages.has_next %}
+                  <li class="long" >
+                      <a href="javascript:alert();return false;" id="next_page_post">下一页</a>
+                      <script>
+                                  var search_key =  $("#search_key").val();
+
+                            $("#next_page_post").on("click",function(event){
+                                event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)
+                                $.ajax({
+                                       type: "POST",
+                                       url: "/api/OperationList",
+                                       data: {
+                                                            "page_num" : {{ pages.next_page_number|safe }},
+                                                           "search_key" :search_key,
+
+                                                        },
+                                       timeout: 1000, //超时时间设置，单位毫秒
+                                       beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+
+                                       success: function(res){
+                                          //请求正确之后的操作
+                                         $("#OptsList").html(res);
+                                         $("#OptsList").show();
+                                       },
+                                       error: function(result){
+                                          //请求失败之后的操作
+                                       }
+                                });
+                            });
+                      </script>
+
+                  </li>
+              {% endif %}
+
+          </ul>
+      </table>
+    </tbody>
+    </table>
+
+    </div>
+</div>
+
+<script>
+
+    var search_key =  $("#search_key").val();
+    function num_post(obj){
+        var num = obj.innerHTML;
+        $.ajax({
+            type: "POST",
+            url: "/api/OperationList",
+            data: {
+                "page_num" : num,
+                "search_key" :search_key,
+
+            },
+            timeout: 1000, //超时时间设置，单位毫秒
+            beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+            success: function(res){
+                //请求正确之后的操作
+                $("#OptsList").html(res);
+                $("#OptsList").show();
+            },
+            error: function(result){
+                                      //请求失败之后的操作
+            }
+        });
+    };
+
+    function search_opts(){
+        var search_key =  $("#search_key").val();
+        $.ajax({
+            type: "POST",
+            url: "/api/OperationList",
+            data: {
+                "search_key" :search_key,
+            },
+            timeout: 1000, //超时时间设置，单位毫秒
+            beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+            success: function(res){
+                //请求正确之后的操作
+                $("#OptsList").html(res);
+                $("#OptsList").show();
+            },
+            error: function(result){
+                                      //请求失败之后的操作
+            }
+        });
+    };
+
+</script>

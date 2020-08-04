@@ -1,0 +1,15 @@
+
+<div id="SingleResultDetail" class="control-group">
+            <div class="control-group" >
+                {% for detail in  SingleResultDetail %}
+
+                    <label class="control-label" >
+                        <font size="4" color="green">{{ detail.api_name |safe }}：</font>
+                        <font size="3" color="green">{{ detail.start_time|safe }} --- {{ detail.end_time|safe}}</font>
+                    </label>
+                        <pre class="pre_message " style="white-space: pre-wrap;word-wrap: break-word; margin-top: 10px;" >{{ detail.detail |safe }}</pre>
+                {% endfor %}
+
+            </div>
+
+</div>

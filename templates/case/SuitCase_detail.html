@@ -1,0 +1,56 @@
+
+<div id="SuitCase_detail" class="control-group" style="width:auto; height:480px; margin-top: 30px" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3">
+            <div class="control-group">
+                <label class="control-label" STYLE="">执行状态<span class="required">*</span>
+                    <input type="text" id="mcase_status" name="mcase_status" value="{{ SuitCase_info.status }}" data-required="1" class="span8 m-wrap" readonly="readonly">
+                </label>
+            </div>
+                <div class="control-group">
+                <label class="control-label" STYLE="margin-left: -15px">用例设计者<span class="required">*</span>
+                    <input type="text" id="mcase_designer" name="mcase_designer" value="{{ SuitCase_info.designer }}" data-required="1" class="span8 m-wrap" readonly="readonly">
+                </label>
+            </div>
+            <div class="control-group">
+                <label class="control-label" STYLE="">用例名称<span class="required">*</span>
+                    <input type="text" id="mcase_name" name="mcase_name" value="{{ SuitCase_info.name }}" data-required="1" class="span8 m-wrap">
+                </label>
+            </div>
+            <div class="control-group">
+                <label class="control-label">用例级别<span class="required">*</span>
+                    <select class="span8 m-wrap" id="mcase_jb" name="mcase_jb" data-required="1">
+                        <option value="{{ SuitCase_info.jb }}">{{ SuitCase_info.jb }}</option>
+                        <option value="Level0">Level0</option>
+                        <option value="Level1">Level1</option>
+                        <option value="Level2">Level2</option>
+                        <option value="Level3">Level3</option>
+                        <option value="Level4">Level4</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">预置条件&nbsp;&nbsp;
+                    <textarea rows="3" id="mcase_precondition" name="mcase_precondition" class="span8 m-wrap" >{{ SuitCase_info.precondition }}</textarea></label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">操作步骤<span class="required">*</span>
+                    <textarea rows="3" id="mcase_operation" name="mcase_operation" data-required="1" class="span8 m-wrap" >{{ SuitCase_info.operation }}</textarea></label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">期望结果<span class="required">*</span>
+                    <textarea rows="3" id="mcase_expect_result" name="mcase_expect_result" data-required="1" class="span8 m-wrap">{{ SuitCase_info.expect_result }}</textarea></label>
+            </div>
+
+            <div class="control-group">
+            <label class="control-label">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <textarea rows="3" id="mcase_desc" name="mcase_desc" value="" data-required="1" class="span8 m-wrap">{{ SuitCase_info.desc }}</textarea>
+            </label>
+        </div>
+{#                <div class="control-group">#}
+{#            <label class="control-label">执行备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#}
+{#                <textarea rows="3" id="mcase_remind" name="mcase_remind" value="" data-required="1" class="span8 m-wrap">{{ SuitCase_info.remind }}</textarea>#}
+{#            </label>#}
+{#        </div>#}
+         </div>

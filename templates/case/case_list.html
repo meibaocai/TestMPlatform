@@ -1,0 +1,640 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load mptt_tags %}
+ {% load cache %}
+{% block title %}
+    首页-测试管理平台
+{% endblock %}
+ {% load cache %}
+
+{% block page_title %}
+    <ul class="breadcrumb">
+
+        <li>
+
+            <i class="icon-home"></i>
+
+            <a href="/index">Home</a>
+
+            <i class="icon-angle-right"></i>
+
+        </li>
+
+        <li><a href="javascript:void(0);" onclick="loadTree()">系统管理 > 产品用例</a></li>
+
+    </ul>
+{% endblock %}
+
+
+{% block contend %}
+
+    <div class="row-fluid">
+        {% csrf_token %}
+        <div class="span4" style=" margin-left:-0px;margin-right:-10px;" >
+            <div class="portlet box grey" style="margin-right:5px;height:650px; overflow:scroll;">
+                <div class="portlet-title ">
+                    <div class="caption"><i class="icon-comments"></i>用例集</div>
+                    <div class="actions">
+                        <a href="javascript:void(0);" id="addnode" class="btn green"> 新增根节点</a>
+                        <a href="javascript:void(0);" id="expand" class="btn yellow"> 展开节点</a>
+                    </div>
+                </div>
+                <div class="portlet-body fuelux" >
+                    <ul id="treeDemo" class="ztree"></ul>
+                      <input type="hidden" id="ztree_value"  value="">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="span8" style=" margin-left:15px;padding-left:-35px;" >
+                <div class="portlet-body" >
+                    <div class="clearfix">
+                        <div class="btn-group" >
+                            <a id="CaseAdd_Button" class="btn green">新增 <i class="icon-plus"></i></a>
+                            <a href="#testAlert"  role="button" class="btn red"  data-toggle="modal" style="margin-left: 10px;">删除 <i class="icon-minus"></i></a>
+                        </div>
+                    <div class="portlet-body" style="padding-top:0;padding-left:0px;" id="case_list">
+
+                </div>
+            </div>
+        </div>
+
+    <!-- 确认弹框-->
+
+    <div id="testAlert" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" aria-hidden="true">
+
+                                <div class="modal-header">
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+
+                                    <h3 id="myModalLabel3">警告</h3>
+
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <p>是否确定删除该用例</p>
+
+                                </div>
+
+                                <div class="modal-footer">
+
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+
+                                    <input type="button" id="CaseDel" data-dismiss="modal" class="btn blue" value="确认">
+
+                                </div>
+
+            </div>
+
+    </div>
+    </div>
+
+
+<style>
+
+    #create_case{
+
+        position:absolute;
+        display:none;
+        cursor:pointer;
+        padding-left:20px;
+        margin-right: auto;
+
+    }
+</style>
+
+
+
+    <!-- 新增用例弹框浮层 -->
+    <div id="create_case" class="modal hide fade modal-large in " tabindex="-1" role="dialog" aria-labelledby="myModalLabel3" style="display: none">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="closeDiv();"></button>
+                <h3 id="myModalLabel3">创建/修改用例</h3>
+            </div>
+            <P></P>
+        <div clall="modal-body form" style="overflow:scroll; width:560px; height:480px;">
+            <div class="control-group">
+                <label class="control-label" STYLE="">用例名称<span class="required">*</span>
+                    <input type="text" id="case_name" name="case_name" value="" data-required="1" class="span8 m-wrap">
+                </label>
+                </div>
+            <div class="control-group">
+                <label class="control-label">用例级别<span class="required">*</span>
+                    <select class="span8 m-wrap" id="case_jb" name="case_jb" data-required="1">
+                        <option value="">--请选择--</option>
+                        <option value="Level0">Level0</option>
+                        <option value="Level1">Level1</option>
+                        <option value="Level2">Level2</option>
+                        <option value="Level3">Level3</option>
+                        <option value="Level4">Level4</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">预置条件&nbsp;&nbsp;
+                    <textarea rows="3" id="case_precondition" name="case_precondition" class="span8 m-wrap"></textarea></label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">操作步骤<span class="required">*</span>
+                    <textarea rows="3" id="case_operation" name="case_operation" data-required="1" class="span8 m-wrap"></textarea></label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">期望结果<span class="required">*</span>
+                    <textarea rows="3" id="case_expect_result" name="case_expect_result" data-required="1" class="span8 m-wrap"></textarea></label>
+            </div>
+
+            <div class="control-group">
+            <label class="control-label">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <textarea rows="3" id="case_desc" name="case_desc" value="" data-required="1" class="span8 m-wrap"></textarea>
+            </label>
+        </div>
+         </div>
+        <div class="modal-footer">
+                <button  class="btn" data-dismiss="modal" onclick="closeDiv();">关闭</button>
+                <button class="btn green btn-primary" id="addcase_button" onclick="CaseAdd();">保存</button>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block myjs %}
+<script>
+
+    //django把树节点数据传给js，初始化树结构
+         //获取tree数据
+    var setting = {
+                view: {
+                    selectedMulti: false,
+                    addHoverDom: addHoverDom, //移入节点显示编辑按钮
+                    removeHoverDom: removeHoverDom  //移入节点显示编辑按钮
+                },
+                check: {
+                    enable: true
+                },
+
+                callback: {
+                    beforeRemove: beforeRemove,  //移除前
+                    beforeRename: beforeRename,   //重命名前
+                    //onRemove: onRemove,
+                    onRename: onRename,
+                    //beforeDrag:beforeDrag,
+                    onClick: zTreeOnClick, //注册节点的点击事件
+                    onExpand: onExpand,//刷新时展开节点
+                    onCollapse: onCollapse,//刷新时关闭节点
+
+                },
+                data: {
+                    simpleData: {
+                    enable: true
+                    }
+                    },
+                edit: {
+                    drag: {
+                    // 打开复制功能，Ctrl+鼠标左键点击后拖拽
+                    isCopy: true,
+                    // 打开移动功能，鼠标左键点击后拖拽
+                    isMove: true
+                },
+                enable: true,
+                    editNameSelectAll: true,
+                    showRemoveBtn: true,
+
+                    removeTitle: "删除节点",
+                    showRenameBtn: true,
+                    renameTitle: "编辑节点"
+
+            }
+             };
+
+    loadTree();
+
+    function loadTree() {
+            $.ajax({
+                type: 'get',
+                beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+                url:'/case/CaseList',
+                timeout: 5000, //超时时间设置，单位毫秒
+                success: function (res) {
+                    zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, {{ Nodes_product|safe }}); //初始化ztree
+                    //Ztree自动触发第一个节点的点击事件
+                    //var node = zTreeObj.getNodes()[0];
+                    //zTreeObj.selectNode(node);
+                    //setting.callback.onClick(null, zTreeObj.setting.treeId, node);
+
+            }
+            })
+
+        };
+
+        //添加根节点
+    $('#addnode').click(function () {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+             //nodes = zTree.getNodes();
+             //console.log(nodes)
+
+            var name = "newNode";
+            var newNode;
+            //发送请求保存一个新建的节点，根据返回ID添加新节点
+            $.ajax({
+                type: 'post',
+                url: '/case/AddCase',
+                data: {
+                    "type": 'ml',
+                    "name": name,
+                    "pId" : 0,
+                },
+                timeout: 5000, //超时时间设置，单位毫秒
+                beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+                success: function (res) {
+                    console.log(res.code)
+                    if (res.code == 200) {
+                        var newId = res.id;
+                        newNode = zTree.addNodes(null, {id: newId, pId: null, name: name});
+                        zTree.editName(newNode[0]);  //新增后显示编辑状态
+                    }
+                }
+            });
+        });
+
+        //展开根节点
+    $('#expand').click(function () {
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var asyncForAll = false;
+
+            if (asyncForAll) {
+            zTree.expandAll(true);
+            }
+            else {
+            expandNodes(zTree.getNodes());
+            }
+        });
+        //展开根节点
+    function expandNodes(nodes) {
+            if (!nodes) return;
+            curStatus = "expand";
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            for (var i=0, l=nodes.length; i<l; i++) {
+                zTree.expandNode(nodes[i], true, false, false);
+                if (nodes[i].isParent && nodes[i].zAsync) {
+                    expandNodes(nodes[i].children);
+                }
+            }
+        };
+
+        //新增节点
+    function addHoverDom(treeId, treeNode) { //treeNode是当前hover的节点信息
+            var sObj = $("#" + treeNode.tId + "_span");
+            if (treeNode.editNameFlag || $("#addBtn_"+treeNode.tId).length>0) return;
+            var addStr = "<span class='button add' id='addBtn_" + treeNode.tId
+                + "' title='新增节点' onfocus='this.blur();'></span>";
+            sObj.after(addStr);
+            var btn = $("#addBtn_"+treeNode.tId);
+
+            if (btn) btn.bind("click", function(){
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                console.log(treeNode.id);
+                var name = "newNode";
+                $.ajax({
+                    type: 'POST',
+                    url: '/case/AddCase',
+                    data: {
+                                "pId": treeNode.id,
+                                "name": name,
+                                "type" :'ml',
+                            },
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+                    success: function (res) {
+
+                        if (res.code == 200 ) {
+                            var newId = res.id;
+                            //在树节点上增加节点
+                            newNode = zTree.addNodes(treeNode, {id: newId, pId: treeNode.id, name: name});
+                            zTree.editName(newNode[0]) //新增的节点进入编辑状态
+                        }
+                    }
+                });
+                return false;
+
+                {#zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, name:"new node" + (newCount++)});#}
+                {#return false;#}
+            });
+        };
+
+        //重命名之前的判空，在beforeRename函数中判断
+    function beforeRename(treeId, treeNode, newName) {
+            if (newName.length == 0) {
+                console.log("节点名称不能为空.");
+                var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+                setTimeout(function () {
+                    zTree.editName(treeNode)
+                }, 10);
+                return false;
+            }
+            return true;
+    };
+
+        //重命名的前后台交互,修改节点信息
+    function onRename(event, treeId, treeNode, isCancel) {
+            if (isCancel) {
+                return;
+            }
+            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+            var onodes = zTree.getNodes()
+            console.log(onodes);
+            //发送请求修改节点信息
+            $.ajax({
+                type: 'post',
+                url: '/case/ModifyCase',
+                data: {
+                "id": treeNode.id,
+                "code": treeNode.pId,  //父节点
+                "name": treeNode.name,
+                "type": 'ml',
+            },
+                beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+                timeout: 5000, //超时时间设置，单位毫秒
+                dataType: 'json',
+                success: function (res) {
+                    console.log(res.code)
+                }
+            });
+        };
+
+        //删除之前的判断
+    function beforeRemove(treeId, treeNode) {
+
+            if(treeNode.isParent){
+                alert('该节点下有子节点，不能删除');
+                return false;
+            }
+
+            var oFlag = confirm("确认删除 节点 -- " + treeNode.name + " 吗？");
+            if(oFlag){
+                $.ajax({
+                    type: 'post',
+                    url: '/case/DelCase',
+                    data: {
+                        "id": treeNode.id
+                    },
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+
+                    success: function (res) {
+                        console.log(res)
+                        if (res.code == 200) {
+                            {#alert(res.msg)#}
+                            return true;
+                        }else {
+                            alert(res.msg);
+                            return false;
+                        }
+                    }
+                })
+            }else{
+                return false
+            }
+        };
+
+        //鼠标移出时，隐藏编辑按钮
+    function removeHoverDom(treeId, treeNode) {
+            $("#addBtn_"+treeNode.tId).unbind().remove();
+        };
+
+        //点击节点的事件
+    function zTreeOnClick(event, treeId, treeNode) {
+            //这里根据节点ID获取对应信息或进行对应的操作
+
+            $.ajax({
+                    type: 'post',
+                    url: '/case/CaseList',
+                    data: {
+                                "pId": treeNode.id,
+                                "type" :'ml',
+                                "name" : treeNode.name,
+                                "page_num" : 1
+                            },
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+
+                    success: function (res) {
+                        $("#case_list").html(res);
+                        $("#case_list").show();
+                        //把treeNode.id传给ztree_value，用于新增用例时候
+                        document.getElementById('ztree_value').value=treeNode.id;
+
+                    }
+
+            });
+        };
+
+    function refresh(){
+          // 获取整棵树上所有的节点
+          var zNodes = {{ Nodes_product|safe }};
+          if (zNodes.length > 0) {
+              var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+              // 获取刷新之前选中的节点
+              var nodes = treeObj.getSelectedNodes();
+              var selectId = nodes[0].id;
+              // 重置树
+              $.fn.zTree.init($("#treeDemo"), policyTreeSetting, zNodes);
+              // 刷新之后默认选中刷新之前的节点
+              var node = treeObj.getNodeByParam("id", selectId);
+              treeObj.selectNode(node, true);
+
+              // 刷新之后默认展开刷新之前展开的节点
+              var cookie = $.cookie("z_tree" + window.location);
+              if (cookie) {
+                  z_tree = JSON.parse(cookie);
+                  for (var i = 0; i < z_tree.length; i++) {
+                      var node = treeObj.getNodeByParam('id', z_tree[i]);
+                      treeObj.expandNode(node, true, false);
+                  }
+              }
+          }
+      };
+        /**
+         * 刷新节点后默认打开原来的位置
+         * @param event
+         * @param treeId
+         * @param treeNode
+         */
+    function onExpand(event, treeId, treeNode) {
+            var cookie = $.cookie("z_tree" + window.location);
+            var z_tree = new Array();
+            if (cookie) {
+                z_tree = JSON.parse(cookie);
+            }
+            if ($.inArray(treeNode.id, z_tree) < 0) {
+                z_tree.push(treeNode.id);
+            }
+            $.cookie("z_tree" + window.location, JSON.stringify(z_tree))
+        }
+
+        /**
+         * 刷新节点后关闭节点的位置
+         * @param event
+         * @param treeId
+         * @param treeNode
+         */
+    function onCollapse(event, treeId, treeNode) {
+            var cookie = $.cookie("z_tree" + window.location);
+            var z_tree = new Array();
+            if (cookie) {
+                z_tree = JSON.parse(cookie);
+            }
+            var index = $.inArray(treeNode.id, z_tree);
+            z_tree.splice(index, 1);
+            for (var i = 0; i < treeNode.children.length; i++) {
+                index = $.inArray(treeNode.children[i].id, z_tree);
+                if (index > -1) z_tree.splice(index, 1);
+            }
+            $.cookie("z_tree" + window.location, JSON.stringify(z_tree))
+        }
+
+         //弹出新增用例窗口
+    $('#CaseAdd_Button').click(function () {
+                //获取选中的ztree的节点id
+                var pId = $("#ztree_value").val();
+                if (pId) {
+                    //alert(pId);
+                    //重置新增用例div中的值
+                    document.getElementById("case_name").value = "";
+                    document.getElementById("case_jb").value = "";
+                    document.getElementById("case_precondition").value = "";
+                    document.getElementById("case_operation").value = "";
+                    document.getElementById("case_expect_result").value = "";
+                    document.getElementById("case_desc").value ="";
+
+                    $("#create_case").show();
+                return;
+                }
+                else {
+                alert("请选择一个用例集目录");
+
+                return false;
+                }
+        });
+
+        //新增用例
+    function CaseAdd() {
+                //获取选中的ztree的节点id
+                var pId = $("#ztree_value").val();
+                var name = $("#case_name").val();
+                var jb = $("#case_jb").val();
+                var precondition = $("#case_precondition").val();
+                var operation = $("#case_operation").val();
+                var expect_result = $("#case_expect_result").val();
+                var case_desc = $("#case_desc").val();
+                if(name == null || name == "" ||jb == null || jb == "" ||operation == null || operation == "" ||expect_result == null || expect_result == "")
+                {
+                        alert("用例名称、用例级别、操作步骤、预计结果必须填写！");
+
+                    return;
+                }
+                else {
+
+                    $.ajax({
+                    type: 'post',
+                    url: '/case/AddCase',
+                    data: {
+                        "type": 'yl',
+                        "pId" : pId,
+                        "name": name,
+                        "jb" :jb,
+                        "precondition" :precondition,
+                        "operation" :operation,
+                        "expect_result" :expect_result,
+                        "case_desc" :case_desc
+                    },
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+                    success: function () {
+                        closeDiv();
+                        refresh_CaseList();
+
+
+
+
+                    }
+
+                });
+
+                }
+        };
+
+        //删除用例
+
+    $("#CaseDel").on('click', function() {
+            check_val = [];
+            $(":checkbox:checked").each(function () {
+                if (this.value != '') {
+                    check_val.push(this.value);
+                }
+            });
+            var checkValue = eval(check_val);
+            if (checkValue == '') {
+                alert("请选择一条记录");
+                window.location.reload()
+                return;
+            }
+            if (checkValue.length>1)
+            {
+                alert("只能选择一条记录");
+                return;
+
+            }
+            $.ajax({
+                type: 'POST',
+                url: '/case/DelCase',
+                data:{
+                    "id":checkValue[0],
+                },
+                beforeSend:function(xhr, settings){
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function (callback) {
+                        alert(callback.msg);
+                        refresh_CaseList();
+
+                }
+            });
+    });
+
+        //关闭新增&修改用例窗口
+    function closeDiv() {
+            document.getElementById("create_case").style.display="none";
+        }
+
+        //刷新用例
+    function refresh_CaseList() {
+                 //获取选中的ztree的节点id
+             var pId = $("#ztree_value").val();
+             $.ajax({
+                    type: 'post',
+                    url: '/case/CaseList',
+                    data: {
+                                "pId": pId,
+                                "type" :'ml',
+                                "page_num" : 1
+                            },
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+
+                    success: function (res) {
+                        $("#case_list").html(res);
+                        $("#case_list").show();
+
+                    }
+            })
+        };
+
+</script>
+
+{% endblock %}

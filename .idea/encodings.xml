@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/TestMPlatform/activator.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/TestMPlatform/celery.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/TestMPlatform/tasks.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/apps/utils/configHttp.py" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/apps/utils/email_send.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/apps/utils/mixin_utils.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/extra_apps" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/extra_apps/DjangoUeditor" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/media" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/css/bootstrap.css" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/fonts" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/static/js/bootstrap.js" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/templates/active_status.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/templates/password_reset.html" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/templates/send_success.html" charset="GBK" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
+</project>

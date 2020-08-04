@@ -1,0 +1,282 @@
+
+<!-- 修改用例弹框浮层 -->
+<style>
+    #case_detail_version{
+
+        position:absolute;
+        display:none;
+        cursor:pointer;
+        padding-left:20px;
+        margin-right: auto;
+
+    }
+</style>
+
+<div id="case_detail_version" class="modal hide fade modal-large in " style="z-index:999;display: none; position: fixed; right:5px;hight:500px;width: 800px; top: 40px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="closeDiv2_version();"></button>
+                <h3 id="myModalLabel4">修改用例</h3>
+            </div>
+            <P></P>
+        <div clall="modal-body form" style="overflow:scroll;width:800px; height:500px;">
+            <div class="control-group">
+                <label class="control-label" STYLE="">用例名称<span class="required">*</span>
+                    <input type="text" id="mcase_name" name="mcase_name" value="" data-required="1" class="span10 m-wrap">
+                </label>
+                </div>
+            <div class="control-group">
+                <label class="control-label">用例级别<span class="required">*</span>
+                    <select class="span10 m-wrap" id="mcase_jb" name="mcase_jb" data-required="1">
+                        <option value="">--请选择--</option>
+                        <option value="Level0">Level0</option>
+                        <option value="Level1">Level1</option>
+                        <option value="Level2">Level2</option>
+                        <option value="Level3">Level3</option>
+                        <option value="Level4">Level4</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">预置条件&nbsp;&nbsp;
+                    <textarea rows="4" id="mcase_precondition" name="mcase_precondition" class="span10 m-wrap" ></textarea></label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">操作步骤<span class="required">*</span>
+                    <textarea rows="4" id="mcase_operation" name="mcase_operation" data-required="1" class="span10 m-wrap"></textarea></label>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">期望结果<span class="required">*</span>
+                    <textarea rows="4" id="mcase_expect_result" name="mcase_expect_result" data-required="1" class="span10 m-wrap"></textarea></label>
+            </div>
+
+            <div class="control-group">
+            <label class="control-label">备注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <textarea rows="4" id="mcase_desc" name="mcase_desc" value="" data-required="1" class="span10 m-wrap"></textarea>
+            </label>
+        </div>
+         </div>
+        <div class="modal-footer">
+                <input type="hidden" id="case_id_value_version"  value="">
+                <button  class="btn" data-dismiss="modal" onclick="closeDiv2_version();">关闭</button>
+                <button class="btn green btn-primary" id="ModifyCase_button" onclick="ModifyCase_version();">保存</button>
+        </div>
+    </div>
+
+<!-- 用例列表 -->
+<div class="" id="case_list_version">
+    <table class="table table-striped table-bordered table-hover" >
+        <thead>
+            <tr>
+                                <th style="width:8px;">
+                                    <input type="checkbox" id="firstCheckBox" class="group-checkable" data-set="#sample_1 .checkboxes" value="">
+                                    <input type="hidden" value="35406" id="suiteIdValue">
+                                </th>
+                                <th>用例名称</th>
+                                <th class="hidden-480">用例级别</th>
+                                <th class="hidden-480">设计者</th>
+                                <th class="hidden-480">修改者</th>
+                                <th class="hidden-480">操作</th>
+                            </tr>
+        </thead>
+        <tbody >
+      {% for cases in pages %}
+
+        <tr class="odd gradeX">
+            <td><input type="checkbox" class="checkboxes" name="checkbox" id="case_id" value="{{ cases.id }}" /></td>
+            <td class="hidden-480" style="color: #246ee5">{{ cases.name }}</td>
+            <td class="hidden-480">{{ cases.jb }}</td>
+            <td class="hidden-480">{{ cases.designer }}</td>
+            <td class="hidden-480">{{ cases.modifier }}</td>
+            <td class="center hidden-480">
+                <a href="#" id="OpenModifyCaseDiv_Button" onclick="OpenModifyCaseDiv_version({{ cases.id }});">修改</a>
+            </td>
+        </tr>
+      {% endfor %}
+
+      <!-- 分页 -->
+        <table class="table" id="case_num">
+          <ul class="breadcrumb">
+              {% if pages.has_previous %}
+                  <li class="long">
+                      <a href="javascript:alert();return false;"  id="previous_page_post_version">上一页</a>
+                      <script>
+                              $("#previous_page_post_version").on("click",function(event){
+                                event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)
+                                $.ajax({
+                                       type: "POST",
+                                       url: "/case/VersionCList",
+                                       data: {
+                                                            "pId": {{ pId |safe }},
+                                                            "page_num" : {{ pages.previous_page_number |safe }}
+                                                        },
+                                       timeout: 1000, //超时时间设置，单位毫秒
+                                       beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+
+                                       success: function(res){
+                                          //请求正确之后的操作
+                                            $("#case_list_version").html(res);
+                                            $("#case_list_version").show();
+                                       },
+                                       error: function(result){
+                                          //请求失败之后的操作
+                                       }
+                                });
+                              });
+                      </script>
+                  </li>
+              {% endif %}
+
+              {% for num in pages.paginator.page_range %}
+                  <li {% if num == pages.number %}class="active " {% endif %} >
+                  <a href="javascript:void(0);" id="num" onclick="num_post_version(this)";>{{ num }}</a></li>
+              {% endfor %}
+
+              {% if pages.has_next %}
+                  <li class="long" >
+                      <a href="javascript:alert();return false;" id="next_page_post_version">下一页</a>
+                      <script>
+                            $("#next_page_post_version").on("click",function(event){
+                                event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)
+                                $.ajax({
+                                       type: "POST",
+                                       url: "/case/VersionCList",
+                                       data: {
+                                                            "pId": {{ pId|safe  }},
+                                                            "page_num" : {{ pages.next_page_number|safe }}
+                                                        },
+                                       timeout: 1000, //超时时间设置，单位毫秒
+                                       beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+
+                                       success: function(res){
+                                          //请求正确之后的操作
+                                          $("#case_list_version").html(res);
+                                          $("#case_list_version").show();
+                                       },
+                                       error: function(result){
+                                          //请求失败之后的操作
+                                       }
+                                });
+                            });
+                      </script>
+                  </li>
+              {% endif %}
+
+          </ul>
+      </table>
+    </tbody>
+    </table>
+</div>
+
+<script>
+
+    function num_post_version(obj){
+        var num = obj.innerHTML;
+        $.ajax({
+            type: "POST",
+            url: "/case/VersionCList",
+            data: {
+                "pId": {{ pId |safe }},
+                "page_num" : num,
+            },
+            timeout: 1000, //超时时间设置，单位毫秒
+            beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+            success: function(res){
+                //请求正确之后的操作
+                $("#case_list_version").html(res);
+                $("#case_list_version").show();
+            },
+            error: function(result){
+                                      //请求失败之后的操作
+            }
+        });
+    };
+
+    //弹出修改用例窗口
+    function OpenModifyCaseDiv_version(obj) {
+        //获取选中的ztree的节点id
+        var pId = $("#ztree_value_version").val();
+        //obj,即可用例的id
+        var case_id = obj;
+        //alert(case_id);
+        if (case_id) {
+                $.ajax({
+                    type: 'get',
+                    url: '/case/ModifyVersionCase',
+                    data: {
+                    "id": case_id,
+                    },
+                    beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    success: function (res) {
+                        document.getElementById("mcase_name").value = res.case_name;
+                        document.getElementById("mcase_jb").value = res.case_jb;
+                        document.getElementById("mcase_precondition").value = res.case_precondition;
+                        document.getElementById("mcase_operation").value = res.case_operation;
+                        document.getElementById("mcase_expect_result").value = res.case_expect_result;
+                        document.getElementById("mcase_desc").value = res.case_desc;
+                        //将case_id值传到修改用例div的case_id_value中，用例修改用例
+                        document.getElementById('case_id_value_version').value=case_id;
+
+                       $("#case_detail_version").show();
+                       return;
+                    }
+                });
+        }
+        else {
+            return false;
+        }
+    };
+
+    //关闭修改用例窗口
+    function closeDiv2_version() {
+            document.getElementById("case_detail_version").style.display="none";
+        }
+
+    //修改用例
+    function ModifyCase_version() {
+        //获取修改用例窗口的用例id：case_id等....
+        var case_id = $("#case_id_value_version").val();
+        var name = $("#mcase_name").val();
+        var jb = $("#mcase_jb").val();
+        var precondition = $("#mcase_precondition").val();
+        var operation = $("#mcase_operation").val();
+        var expect_result = $("#mcase_expect_result").val();
+        var case_desc = $("#mcase_desc").val()
+
+        if(name == null || name == "" ||jb == null || jb == "" ||operation == null || operation == "" ||expect_result == null || expect_result == "")
+                {
+                        alert("用例名称、用例级别、操作步骤、预计结果必须填写!");
+
+                    return;
+                }
+        //alert(case_id);
+        else{
+                $.ajax({
+                    type: 'post',
+                    url: '/case/ModifyVersionCase',
+                    data: {
+                    "id": case_id,
+                    "type":"yl",
+                    "name":name,
+                    "jb" :jb,
+                    "precondition" :precondition,
+                    "operation" :operation,
+                    "expect_result" :expect_result,
+                    "case_desc" :case_desc
+                    },
+                    beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+                    timeout: 5000, //超时时间设置，单位毫秒
+                    success: function (res) {
+
+                       closeDiv2_version();
+                       refresh_CaseList_version();
+
+                    }
+                });
+        }
+    };
+
+</script>
