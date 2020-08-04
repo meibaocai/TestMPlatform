@@ -248,8 +248,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/redmine.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+            <state relative-caret-position="357">
+              <caret line="75" column="22" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -932,7 +932,7 @@
       <workItem from="1596160275244" duration="19086000" />
       <workItem from="1596417216349" duration="728000" />
       <workItem from="1596420201435" duration="31534000" />
-      <workItem from="1596531316839" duration="354000" />
+      <workItem from="1596531316839" duration="421000" />
     </task>
     <servers />
   </component>
@@ -942,7 +942,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2127602000" />
+    <option name="totallyTimeSpent" value="2127669000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1507,8 +1507,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/redmine.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="21" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+        <state relative-caret-position="357">
+          <caret line="75" column="22" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
         </state>
       </provider>
     </entry>
