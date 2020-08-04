@@ -6,13 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/apps/api/views.py" description="        if opt_id:&#10;            all_opts = Operatio..." line="883" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b04b2a1e-7a34-4a24-a6c7-77adf06a40da" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/TestMPlatform/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestMPlatform/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/case/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/case/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mycelery/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/mycelery/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/redmine.txt" beforeDir="false" afterPath="$PROJECT_DIR$/redmine.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/case/case_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/case/case_list.html" afterDir="false" />
-    </list>
+    <list default="true" id="b04b2a1e-7a34-4a24-a6c7-77adf06a40da" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +41,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
@@ -293,11 +287,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/redmine.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="54" />
+            <state relative-caret-position="237">
+              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
             </state>
           </provider>
         </entry>
@@ -412,11 +406,11 @@
         <option value="$PROJECT_DIR$/templates/api/ApiCase_modify.html" />
         <option value="$PROJECT_DIR$/mycelery/runcase/tasks.py" />
         <option value="$PROJECT_DIR$/apps/api/views.py" />
-        <option value="$PROJECT_DIR$/redmine.txt" />
         <option value="$PROJECT_DIR$/templates/case/case_list.html" />
         <option value="$PROJECT_DIR$/apps/case/views.py" />
         <option value="$PROJECT_DIR$/TestMPlatform/settings.py" />
         <option value="$PROJECT_DIR$/mycelery/config.py" />
+        <option value="$PROJECT_DIR$/redmine.txt" />
       </list>
     </option>
   </component>
@@ -458,17 +452,6 @@
             <path>
               <item name="TestMPlatform" type="b2602c69:ProjectViewProjectNode" />
               <item name="TestMPlatform" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TestMPlatform" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TestMPlatform" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TestMPlatform" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TestMPlatform" type="462c0819:PsiDirectoryNode" />
-              <item name="apps" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TestMPlatform" type="b2602c69:ProjectViewProjectNode" />
@@ -959,7 +942,7 @@
       <workItem from="1596160275244" duration="19086000" />
       <workItem from="1596417216349" duration="728000" />
       <workItem from="1596420201435" duration="31534000" />
-      <workItem from="1596531316839" duration="2638000" />
+      <workItem from="1596531316839" duration="2874000" />
     </task>
     <servers />
   </component>
@@ -969,7 +952,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2129886000" />
+    <option name="totallyTimeSpent" value="2130122000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -999,7 +982,7 @@
       <window_info anchor="bottom" id="找到" order="10" />
       <window_info anchor="bottom" id="检验" order="11" sideWeight="0.49932525" weight="0.329927" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.21188119" weight="0.740146" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="13" sideWeight="0.49662617" visible="true" weight="0.63503647" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="13" sideWeight="0.49662617" visible="true" weight="0.3737226" />
       <window_info anchor="bottom" id="Database Changes" order="14" sideWeight="0.5013495" weight="0.28321168" />
       <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.5033738" weight="0.67445254" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1318,13 +1301,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/redmine.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TestMPlatform/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
@@ -1551,6 +1527,13 @@
             <element signature="e#43538#43753#0" />
             <element signature="e#43842#43856#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/redmine.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
         </state>
       </provider>
     </entry>
