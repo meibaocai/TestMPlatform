@@ -200,8 +200,8 @@ EMAIL_USE_TLS = False
 EMAIL_FROM = "meibaocai@163.com"
 
 # # 异步任务队列Celery在Django中的使用配置
-# BROKER_URL = 'amqp://yoho:yoho@192.168.102.45:5672/yoho'
-# RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+BROKER_URL = 'amqp://yoho:yoho@192.168.102.45:5672/yoho'
+RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 # djcelery.setup_loader()
 # CELERY_ENABLE_UTC = True
 # CELERY_TIMEZONE = 'Asia/Shanghai'

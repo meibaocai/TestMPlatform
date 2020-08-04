@@ -7,7 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b04b2a1e-7a34-4a24-a6c7-77adf06a40da" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/TestMPlatform/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestMPlatform/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/case/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/apps/case/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mycelery/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/mycelery/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/redmine.txt" beforeDir="false" afterPath="$PROJECT_DIR$/redmine.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/case/case_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/case/case_list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,11 +47,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2052">
-              <caret line="1874" column="14" selection-start-line="1874" selection-start-column="14" selection-end-line="1874" selection-end-column="14" />
+            <state relative-caret-position="120">
+              <caret line="1830" column="15" selection-start-line="1830" selection-end-line="1831" />
               <folding>
                 <element signature="e#1054#1901#0" />
                 <element signature="e#1085#1901#0" />
@@ -231,36 +235,50 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mycelery/runcase/tasks.py">
+        <entry file="file://$PROJECT_DIR$/TestMPlatform/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="938" selection-start-line="938" selection-end-line="938" />
+            <state relative-caret-position="224">
+              <caret line="202" selection-start-line="202" selection-end-line="203" selection-end-column="61" />
               <folding>
-                <element signature="n#!!doc" />
-                <element signature="e#90#119#0" expanded="true" />
-                <element signature="e#1043#28869#0" />
-                <element signature="e#28954#52579#0" />
+                <element signature="e#313#322#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/redmine.txt">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mycelery/__init__.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mycelery/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="75" column="22" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
+            <state relative-caret-position="266">
+              <caret line="14" column="44" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TestMPlatform/settings.py">
+        <entry file="file://$PROJECT_DIR$/templates/api/ApiCase_modify.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="133" selection-start-line="133" selection-end-line="144" selection-end-column="1" />
+            <state relative-caret-position="399">
+              <caret line="1159" column="41" selection-start-line="1159" selection-start-column="38" selection-end-line="1159" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/apps/case/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
               <folding>
-                <element signature="e#313#322#0" expanded="true" />
+                <element signature="e#0#52#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -270,7 +288,16 @@
         <entry file="file://$PROJECT_DIR$/mycelery/config.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="38">
-              <caret line="2" selection-start-line="2" selection-end-line="8" selection-end-column="73" />
+              <caret line="2" column="61" selection-start-line="2" selection-start-column="61" selection-end-line="2" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/redmine.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="161">
+              <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -309,7 +336,6 @@
       <find>CELERYD_LOG_FILE</find>
       <find>CELERY_BROKER_URL</find>
       <find>BROKER_URL</find>
-      <find>CELERY_RESULT_BACKEND</find>
       <find>CELERY_ACCEPT_CONTENT</find>
       <find>CELERYBEAT_SCHEDULER</find>
       <find>config_from_object</find>
@@ -318,6 +344,7 @@
       <find>request</find>
       <find>request.POST</find>
       <find>select_ds</find>
+      <find>mptt_tags</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -346,13 +373,11 @@
         <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/apps/case/models.py" />
         <option value="$PROJECT_DIR$/templates/case/version_case_list.html" />
-        <option value="$PROJECT_DIR$/templates/case/case_list.html" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/static/js/api/apicase_add.js" />
         <option value="$PROJECT_DIR$/static/js/api/apicase_modify.js" />
         <option value="$PROJECT_DIR$/templates/api/ApiCase_add.html" />
         <option value="$PROJECT_DIR$/apps/api/tests.py" />
-        <option value="$PROJECT_DIR$/apps/case/views.py" />
         <option value="$PROJECT_DIR$/apps/utils/Log.py" />
         <option value="$PROJECT_DIR$/apps/case/tests.py" />
         <option value="$PROJECT_DIR$/apps/utils/common.py" />
@@ -386,10 +411,12 @@
         <option value="$PROJECT_DIR$/mycelery/main.py" />
         <option value="$PROJECT_DIR$/templates/api/ApiCase_modify.html" />
         <option value="$PROJECT_DIR$/mycelery/runcase/tasks.py" />
-        <option value="$PROJECT_DIR$/TestMPlatform/settings.py" />
-        <option value="$PROJECT_DIR$/mycelery/config.py" />
         <option value="$PROJECT_DIR$/apps/api/views.py" />
         <option value="$PROJECT_DIR$/redmine.txt" />
+        <option value="$PROJECT_DIR$/templates/case/case_list.html" />
+        <option value="$PROJECT_DIR$/apps/case/views.py" />
+        <option value="$PROJECT_DIR$/TestMPlatform/settings.py" />
+        <option value="$PROJECT_DIR$/mycelery/config.py" />
       </list>
     </option>
   </component>
@@ -446,13 +473,13 @@
             <path>
               <item name="TestMPlatform" type="b2602c69:ProjectViewProjectNode" />
               <item name="TestMPlatform" type="462c0819:PsiDirectoryNode" />
-              <item name="mycelery" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TestMPlatform" type="b2602c69:ProjectViewProjectNode" />
               <item name="TestMPlatform" type="462c0819:PsiDirectoryNode" />
-              <item name="mycelery" type="462c0819:PsiDirectoryNode" />
-              <item name="runcase" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TestMPlatform" type="b2602c69:ProjectViewProjectNode" />
@@ -469,7 +496,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TestMPlatform - 副本" />
+    <property name="last_opened_file_path" value="E:/jenkins+k8s+spinaker/TestMPlatform" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -932,7 +959,7 @@
       <workItem from="1596160275244" duration="19086000" />
       <workItem from="1596417216349" duration="728000" />
       <workItem from="1596420201435" duration="31534000" />
-      <workItem from="1596531316839" duration="421000" />
+      <workItem from="1596531316839" duration="2638000" />
     </task>
     <servers />
   </component>
@@ -942,7 +969,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2127669000" />
+    <option name="totallyTimeSpent" value="2129886000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -955,9 +982,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7867079" visible="true" weight="0.22334683" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7867079" visible="true" weight="0.22334683" />
       <window_info id="Favorites" order="1" sideWeight="0.21329212" side_tool="true" weight="0.20850202" />
       <window_info id="Structure" order="2" sideWeight="0.21329212" side_tool="true" weight="0.20850202" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -973,7 +999,7 @@
       <window_info anchor="bottom" id="找到" order="10" />
       <window_info anchor="bottom" id="检验" order="11" sideWeight="0.49932525" weight="0.329927" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.21188119" weight="0.740146" />
-      <window_info anchor="bottom" id="Terminal" order="13" sideWeight="0.49662617" visible="true" weight="0.25985402" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="13" sideWeight="0.49662617" visible="true" weight="0.63503647" />
       <window_info anchor="bottom" id="Database Changes" order="14" sideWeight="0.5013495" weight="0.28321168" />
       <window_info anchor="bottom" id="Event Log" order="15" sideWeight="0.5033738" weight="0.67445254" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1036,21 +1062,6 @@
     <SUITE FILE_PATH="coverage/TestMPlatfrom$0001_initial.coverage" NAME="0001_initial Coverage Results" MODIFIED="1567759504747" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/apps/manager/migrations" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/apps/bugs/admin.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://C:/Python36/Lib/site-packages/celery/app/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="97" column="4" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Python36/Lib/site-packages/celery/task/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-313" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/utils/configHttp.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -1255,10 +1266,92 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mycelery/__init__.py">
+    <entry file="file://$PROJECT_DIR$/mycelery/runcase/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/redmin" />
+    <entry file="file://$PROJECT_DIR$/celerybeat.pid">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bugs/bug_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="18" lean-forward="true" selection-start-column="18" selection-end-column="18" />
+        <state relative-caret-position="-2166" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mycelery/runcase/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="938" selection-start-line="938" selection-end-line="938" />
+          <folding>
+            <element signature="n#!!doc" />
+            <element signature="e#90#119#0" expanded="true" />
+            <element signature="e#1043#28869#0" />
+            <element signature="e#28954#52579#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/case/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="26" column="42" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="42" />
+          <folding>
+            <element signature="e#638#670#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/case/case_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-5206">
+          <caret line="26" column="16" selection-start-line="26" selection-start-column="9" selection-end-line="26" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/case/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#0#52#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/redmine.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TestMPlatform/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="202" selection-start-line="202" selection-end-line="203" selection-end-column="61" />
+          <folding>
+            <element signature="e#313#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mycelery/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="61" selection-start-line="2" selection-start-column="61" selection-end-line="2" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mycelery/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mycelery/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="44" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1269,31 +1362,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mycelery/runcase/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/redmin" />
-    <entry file="file://$PROJECT_DIR$/mycelery/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="39" selection-start-line="10" selection-start-column="33" selection-end-line="10" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/api/ApiCase_modify.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="1148" column="33" selection-start-line="1148" selection-start-column="20" selection-end-line="1148" selection-end-column="33" />
+        <state relative-caret-position="399">
+          <caret line="1159" column="41" selection-start-line="1159" selection-start-column="38" selection-end-line="1159" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2052">
-          <caret line="1874" column="14" selection-start-line="1874" selection-start-column="14" selection-end-line="1874" selection-end-column="14" />
+        <state relative-caret-position="120">
+          <caret line="1830" column="15" selection-start-line="1830" selection-end-line="1831" />
           <folding>
             <element signature="e#1054#1901#0" />
             <element signature="e#1085#1901#0" />
@@ -1472,43 +1551,6 @@
             <element signature="e#43538#43753#0" />
             <element signature="e#43842#43856#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mycelery/runcase/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="938" selection-start-line="938" selection-end-line="938" />
-          <folding>
-            <element signature="n#!!doc" />
-            <element signature="e#90#119#0" expanded="true" />
-            <element signature="e#1043#28869#0" />
-            <element signature="e#28954#52579#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mycelery/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" selection-start-line="2" selection-end-line="8" selection-end-column="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TestMPlatform/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="133" selection-start-line="133" selection-end-line="144" selection-end-column="1" />
-          <folding>
-            <element signature="e#313#322#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/redmine.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="75" column="22" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
         </state>
       </provider>
     </entry>

@@ -62,14 +62,14 @@ TestMPlatform
     Celery提供了一个工具flower，将各个任务的执行情况、各个worker的健康状态进行监控并以可视化的方式展现
     ```bash
         #再mycelery的根目录执行
-        celery -A mycelery.main worker --loglevel=info #启动worker
+        python manage.py celery -A mycelery.main worker --loglevel=info #启动worker
         python manage.py celery beat --loglevel=info #启动定时任务监听器
     ```
 
 
 10. 访问：http://localhost:5555/dashboard 即可查看任务列表和状态
 
-11. 浏览器输入：http://127.0.0.1:7777/index  开始尽情享用平台吧
+11. 浏览器输入：http://127.0.0.1:7777/login/ 开始尽情享用平台吧
 
 12. 浏览器输入http://127.0.0.1:7777/xadmin/  输入步骤6设置的用户名、密码，登录后台运维管理系统，可后台管理数据
 

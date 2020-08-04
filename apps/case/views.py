@@ -18,7 +18,6 @@ from functools import reduce
 import json
 # 产品用例目录和列表
 class CaseListView(View):
-    # @method_decorator(cache_page(300))
     def get(self,request):
         belong_project_id = request.COOKIES["p_id"]
         # print(belong_project_id)
