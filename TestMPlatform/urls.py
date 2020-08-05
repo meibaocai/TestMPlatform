@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf.urls import include,url
+from django.conf.urls import include, url
 from django.views import static
 from .settings import MEDIA_ROOT, STATIC_ROOT
 
@@ -23,8 +23,8 @@ from users.views import IndexView,LoginView,LogoutView,RegisterView,ForgetPwdVie
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
-    url('^static/(?P<path>.*)$', static.serve, {'document_root':STATIC_ROOT}, name='static'),
-    url(r'^media/(?P<path>.*)$',static.serve,{"document_root":MEDIA_ROOT},name='media'),
+    url('^static/(?P<path>.*)$', static.serve, {'document_root': STATIC_ROOT}, name='static'),
+    url(r'^media/(?P<path>.*)$', static.serve, {"document_root": MEDIA_ROOT}, name='media'),
     url(r'^users/', include(('users.urls', "users"), namespace="users")),
     url(r'^case/', include(('case.urls', "case"), namespace="case")),
     url(r'^api/', include(('api.urls', "api"), namespace="api")),

@@ -55,7 +55,7 @@ class VersionCase(models.Model):
     status = models.CharField(verbose_name="用例状态", choices=(("0", "删除"), ("1", "正常")), max_length=5, default="1")
     type = models.CharField(verbose_name="类型", choices=(("ml", "目录"), ("yl", "用例")), max_length=5, default="")
     p_case_id = models.IntegerField(verbose_name="关联产品用例库的id", null=True)
-    belong_version = models.ForeignKey(VersionInfo, verbose_name=u"所属版本",on_delete=models.CASCADE)
+    belong_version = models.ForeignKey(VersionInfo, verbose_name=u"所属版本", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "用例信息"
