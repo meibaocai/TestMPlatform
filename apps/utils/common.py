@@ -523,7 +523,7 @@ def config_check_json(ckeck_json, dictPre, dictDs):
             pass
     return ckeck_json
 
-# 发送请求
+# 发送HTTP请求
 def send_request(api_name, method_type, url, headers, cookies, request):
     configHttp = ConfigHttp.ConfigHttp()
     # configHttp.logger.info("api_name:" + api_name)
