@@ -110,7 +110,8 @@
                                        url: "/case/VersionCList",
                                        data: {
                                                             "pId": {{ pId |safe }},
-                                                            "page_num" : {{ pages.previous_page_number |safe }}
+                                                             "id_list": JSON.stringify({{ id_list|safe}}),
+                                                             "page_num" : {{ pages.previous_page_number |safe }}
                                                         },
                                        timeout: 1000, //超时时间设置，单位毫秒
                                        beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
@@ -145,6 +146,7 @@
                                        url: "/case/VersionCList",
                                        data: {
                                                             "pId": {{ pId|safe  }},
+                                                             "id_list": JSON.stringify({{ id_list|safe}}),
                                                             "page_num" : {{ pages.next_page_number|safe }}
                                                         },
                                        timeout: 1000, //超时时间设置，单位毫秒
@@ -179,6 +181,7 @@
             url: "/case/VersionCList",
             data: {
                 "pId": {{ pId |safe }},
+                "id_list": JSON.stringify({{ id_list|safe}}),
                 "page_num" : num,
             },
             timeout: 1000, //超时时间设置，单位毫秒

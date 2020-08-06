@@ -40,6 +40,7 @@
                 <div class="portlet-body fuelux" >
                     <ul id="treeDemo_version" class="ztree"></ul>
                       <input type="hidden" id="ztree_value_version"  value="">
+                      <input type="hidden" id="ztree_select_idlist_version"  value="">
 
                 </div>
             </div>
@@ -342,7 +343,7 @@
             }
         });
 
-                //展开根节点
+     //展开根节点
     $('#expand_product').click(function () {
             var zTree = $.fn.zTree.getZTreeObj("treeDemo_product");
             var asyncForAll = false;
@@ -506,12 +507,14 @@
         //点击节点的事件
     function zTreeOnClick_version(event, treeId, treeNode) {
             //这里根据节点ID获取对应信息或进行对应的操作
+            idList = getChildNodes(treeNode)
 
             $.ajax({
                     type: 'post',
                     url: '/case/VersionCList',
                     data: {
                                 "pId": treeNode.id,
+                                "id_list" :idList,
                                 "type" :'ml',
                                 "name" : treeNode.name,
                                 "page_num" : 1
@@ -522,13 +525,26 @@
                     success: function (res) {
                         $("#case_list_version").html(res);
                         $("#case_list_version").show();
-                        //把treeNode.id传给ztree_value，用于新增用例时候
+                        //把treeNode.id传给ztree_value，用于新增用例时候,ztree_select_idlist_version:选中节点和子节点集合
                         document.getElementById('ztree_value_version').value=treeNode.id;
+                        document.getElementById('ztree_select_idlist_version').value=idList;
+
 
                     }
 
             });
         };
+
+   //获取选中接点和子节点集合
+    function getChildNodes(treeNode) {
+　　  var naviTree = $.fn.zTree.getZTreeObj('treeDemo_version');
+     var childNodes = naviTree.transformToArray(treeNode);
+     var nodes = new Array();
+     for(i = 0; i < childNodes.length; i++) {
+          nodes[i] = childNodes[i].id;
+     }
+     return nodes.join(",");
+}
 
     function refresh(){
           // 获取整棵树上所有的节点
@@ -555,7 +571,8 @@
               }
           }
       };
-        /**
+
+   /**
          * 刷新节点后默认打开原来的位置
          * @param event
          * @param treeId
@@ -573,7 +590,7 @@
             $.cookie("z_tree" + window.location, JSON.stringify(z_tree))
         }
 
-        /**
+   /**
          * 刷新节点后关闭节点的位置
          * @param event
          * @param treeId
@@ -594,7 +611,7 @@
             $.cookie("z_tree" + window.location, JSON.stringify(z_tree))
         }
 
-         //弹出新增用例窗口
+   //弹出新增用例窗口
     $('#CaseAdd_Button_version').click(function () {
                 //获取选中的ztree的节点id
                 var pId = $("#ztree_value_version").val();
@@ -748,11 +765,14 @@
     function refresh_CaseList_version() {
                  //获取选中的ztree的节点id
              var pId = $("#ztree_value_version").val();
+             var id_list = $("#ztree_select_idlist_version").val();
+
              $.ajax({
                     type: 'post',
                     url: '/case/VersionCList',
                     data: {
                                 "pId": pId,
+                                 "id_list": id_list,
                                 "type" :'ml',
                                 "page_num" : 1
                             },

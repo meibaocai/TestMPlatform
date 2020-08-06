@@ -105,12 +105,14 @@
                       <script>
                               $("#previous_page_post").on("click",function(event){
                                 event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)
+
                                 $.ajax({
                                        type: "POST",
                                        url: "/case/CaseList",
                                        data: {
                                                             "pId": {{ pId |safe }},
-                                                            "page_num" : {{ pages.previous_page_number |safe }}
+                                                            "id_list": JSON.stringify({{ id_list|safe}}),
+                                                            "page_num": {{ pages.previous_page_number |safe }}
                                                         },
                                        timeout: 1000, //超时时间设置，单位毫秒
                                        beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
@@ -140,11 +142,13 @@
                       <script>
                             $("#next_page_post").on("click",function(event){
                                 event.preventDefault();//使a自带的方法失效，即无法调整到href中的URL(http://www.baidu.com)
+
                                 $.ajax({
                                        type: "POST",
                                        url: "/case/CaseList",
                                        data: {
                                                             "pId": {{ pId|safe  }},
+                                                            "id_list": JSON.stringify({{ id_list|safe}}),
                                                             "page_num" : {{ pages.next_page_number|safe }}
                                                         },
                                        timeout: 1000, //超时时间设置，单位毫秒
@@ -174,11 +178,13 @@
 
     function num_post(obj){
         var num = obj.innerHTML;
+
         $.ajax({
             type: "POST",
             url: "/case/CaseList",
             data: {
                 "pId": {{ pId |safe }},
+                 "id_list": JSON.stringify({{ id_list|safe}}),
                 "page_num" : num,
             },
             timeout: 1000, //超时时间设置，单位毫秒

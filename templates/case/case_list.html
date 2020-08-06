@@ -40,6 +40,7 @@
                 <div class="portlet-body fuelux" >
                     <ul id="treeDemo" class="ztree"></ul>
                       <input type="hidden" id="ztree_value"  value="">
+                      <input type="hidden" id="ztree_select_idlist"  value="">
 
                 </div>
             </div>
@@ -407,15 +408,17 @@
 
         //点击节点的事件
     function zTreeOnClick(event, treeId, treeNode) {
+            idList = getChildNodes(treeNode)
             //这里根据节点ID获取对应信息或进行对应的操作
-            $.ajax({
-                    type: 'post',
+        $.ajax({
+                    type: 'POST',
                     url: '/case/CaseList',
                     data: {
                                 "pId": treeNode.id,
+                                "id_list" :idList,
                                 "type" :'ml',
                                 "name" : treeNode.name,
-                                "page_num" : 1
+                                "page_num" : 1,
                             },
                     timeout: 5000, //超时时间设置，单位毫秒
                     beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
@@ -425,11 +428,26 @@
                         $("#case_list").show();
                         //把treeNode.id传给ztree_value，用于新增用例时候
                         document.getElementById('ztree_value').value=treeNode.id;
+                        document.getElementById('ztree_select_idlist').value=idList;
+
+
+
 
                     }
 
             });
         };
+
+    //获取选中接点和子节点集合
+    function getChildNodes(treeNode) {
+　　  var naviTree = $.fn.zTree.getZTreeObj('treeDemo');
+     var childNodes = naviTree.transformToArray(treeNode);
+     var nodes = new Array();
+     for(i = 0; i < childNodes.length; i++) {
+          nodes[i] = childNodes[i].id;
+     }
+     return nodes.join(",");
+}
 
     function refresh(){
           // 获取整棵树上所有的节点
@@ -613,11 +631,13 @@
     function refresh_CaseList() {
                  //获取选中的ztree的节点id
              var pId = $("#ztree_value").val();
+             var id_list = $("#ztree_select_idlist").val();
              $.ajax({
                     type: 'post',
                     url: '/case/CaseList',
                     data: {
                                 "pId": pId,
+                                "id_list": id_list,
                                 "type" :'ml',
                                 "page_num" : 1
                             },

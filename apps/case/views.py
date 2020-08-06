@@ -19,11 +19,10 @@ import json
 # 产品用例目录和列表
 class CaseListView(View):
     def get(self,request):
-        belong_project_id = request.COOKIES["p_id"]
-        # print(belong_project_id)
         # 获取树节点，返回ztree简单树结构
         Nodes = []
-        if belong_project_id != '':
+        if request.COOKIES["p_id"]:
+            belong_project_id = request.COOKIES["p_id"]
             caselist = TestCase.objects.filter(Q(type='ml') & Q(status='1') & Q(belong_project=int(belong_project_id)))
             Nodes = [
                 {
@@ -41,17 +40,20 @@ class CaseListView(View):
 
     def post(self,request):
         belong_project_id = request.COOKIES["p_id"]
-        # 获取前台树节点id
+        # 获取前台树节点id，有了id_list，其实pId已经没有作用了，暂时保留
         pId = request.POST.get("pId", "")
-        # print("pId:", pId)
-        # print("Nodes:", Nodes)
-        if pId:
+        # strip去除前后[ ]，并且把"替换为空，因为case_list.html和table_list.html 传的id_list 不一样
+        id_list = request.POST.get("id_list", "").strip('[ ]').replace('"', '')
+        # print("id_list:", id_list)
+        # 切割字符串id_list，并且转换成list，id_list即：所选节点的子节点和当前节点的集合
+        id_list = id_list.split(',')
+
+        if id_list:
             # 根据节点id，获取节点id下的用例
-            all_testcase = TestCase.objects.filter(Q(type='yl') & Q(status='1') & Q(parent_id=int(pId)) & Q(belong_project=int(belong_project_id))).order_by('-id')
+            all_testcase = TestCase.objects.filter(Q(type='yl') & Q(status='1') & Q(parent_id__in=id_list) & Q(belong_project=int(belong_project_id))).order_by('-id')
             # print("all_testcase:", all_testcase)
             pa = Paginator(all_testcase, 10)
             page_num = int(request.POST.get('page_num'))
-            # print(page_num)
             try:
                 pages = pa.page(page_num)
             except PageNotAnInteger:
@@ -59,7 +61,7 @@ class CaseListView(View):
             except EmptyPage:
                 pages = pa.page(pa.num_pages)
             # print(pages)
-            return render(request, 'case/table_list.html',{"pages": pages,"pId": pId})
+            return render(request, 'case/table_list.html', {"pages": pages, "pId": pId, "id_list": id_list})
 
         else:
             return JsonResponse({"msg": "节点ID不存在", "code": 500})
@@ -216,12 +218,17 @@ class VersionCaseListView(View):
 
     def post(self,request):
         belong_version_id = request.COOKIES["v_id"]
-        # 获取前台树节点id
         if belong_version_id != '':
+           # 获取前台树节点id，有了id_list，其实pId已经没有作用了，暂时保留
             pId = request.POST.get("pId", "")
-            if pId:
+            # strip去除前后[ ]，并且把"替换为空，因为case_list.html和table_list.html 传的id_list 不一样
+            id_list = request.POST.get("id_list", "").strip('[ ]').replace('"', '')
+            # print("id_list:", id_list)
+            # 切割字符串id_list，并且转换成list，id_list即：所选节点的子节点和当前节点的集合
+            id_list = id_list.split(',')
+            if id_list:
                 # 根据节点id，获取节点id下的用例
-                all_testcase = VersionCase.objects.filter(Q(type='yl') & Q(status='1') & Q(parent_id=int(pId)) & Q(belong_version=int(belong_version_id))).order_by('-id')
+                all_testcase = VersionCase.objects.filter(Q(type='yl') & Q(status='1') & Q(parent_id__in=id_list) & Q(belong_version=int(belong_version_id))).order_by('-id')
                 # print("all_testcase:", all_testcase)
                 pa = Paginator(all_testcase, 10)
                 page_num = int(request.POST.get('page_num'))
@@ -232,11 +239,11 @@ class VersionCaseListView(View):
                 except EmptyPage:
                     pages = pa.page(pa.num_pages)
                 # print(pages)
-                return render(request, 'case/version_table_list.html',{"pages": pages,"pId": pId})
+                return render(request, 'case/version_table_list.html',{"pages": pages, "pId": pId, "id_list": id_list})
             else:
                 return JsonResponse({"msg": "节点ID不存在", "code": 500})
         else:
-            return JsonResponse({"msg": "节点ID不存在", "code": 500})
+            return JsonResponse({"msg": "version_id不存在", "code": 500})
 
 # 版本用例目录和用例新增
 class AddVersionCaseView(View):
