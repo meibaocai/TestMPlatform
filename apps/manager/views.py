@@ -7,7 +7,7 @@ from manager.forms import AddProjectForm,ModifyProjectFrom,AddVersionForm,Modify
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.urls import reverse
-from  django.http import JsonResponse
+from django.http import JsonResponse
 import json
 
 

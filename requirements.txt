@@ -1,0 +1,25 @@
+django == 2.2.4
+django-celery == 3.2.2
+django-constance  == 2.5.0
+django-cors-headers == 2.4.0
+django-crispy-forms == 1.7.2
+django-formtools == 2.1
+django-import-export == 1.2.0
+django-js-asset  == 1.2.2
+django-mptt == 0.10.0
+django-pure-pagination == 0.3.0
+django-ranged-response 0.2.0
+django-redis  ==  4.12.1
+django-reversion ==  3.0.4
+django-simple-captcha == 0.5.11
+djangorestframework  == 3.8.2
+DjangoUeditor == 1.8.143
+captcha == 0.3
+flower == 0.9.2
+jsonpath == 0.82
+pycparser == 2.18
+requests == 2.24.0
+urllib3 == 1.25.9
+anyjson == 0.3.3
+celery == 3.1.26.post2
+librabbitmq == 2.0.0

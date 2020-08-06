@@ -9,7 +9,7 @@ from django.db.models import Q
 from django.urls import reverse
 import os
 from django.conf import settings
-from  django.http import JsonResponse
+from django.http import JsonResponse
 import json
 from utils.email_send import random_str
 

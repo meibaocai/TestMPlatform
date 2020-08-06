@@ -12,7 +12,7 @@ from users.models import UserProfile
 from mptt.models import MPTTModel
 from django.db.models import Q
 from django.urls import reverse
-from  django.http import JsonResponse
+from django.http import JsonResponse
 import operator
 from functools import reduce
 import json
