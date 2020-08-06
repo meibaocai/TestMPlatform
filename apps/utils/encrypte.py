@@ -52,19 +52,26 @@ def get_hmac(key, msg, digestmod=None):
     # mac.digest()  # 字符串的ascii格式
     mac.hexdigest()  # 加密后字符串的十六进制格式
     return mac.hexdigest()
-# ccc = get_hmac('sdfadf ','zhognguo','MD5')
 
-# 数据加密标准（Data Encryption Standard），属于对称加密算法。DES是一个分组加密算法，典型的DES以64位为分组对数据加密，和解密
-# 用的是同一个算法。它的密钥长度是56位（因为每个第8 位都用作奇偶校验），密钥可以是任意的56位的数，而且可以任意时候改变。
-# des加密
+# DES数据加密标准（Data Encryption Standard），属于对称加密算法。DES是一个分组加密算法，典型的DES以64位为分组对数据加密，
+# 和解密用的是同一个算法。它的密钥长度是56位（因为每个第8 位都用作奇偶校验），密钥可以是任意的56位的数，而且可以任意时候改变。
+# DES加密
 def get_des_encrypt(secret_key, s):
     iv = secret_key
     k = des(secret_key, CBC, iv, pad=None, padmode=PAD_PKCS5)
     en = k.encrypt(s, padmode=PAD_PKCS5)
     return binascii.b2a_hex(en)
-# des解密
+# DES解密
 def get_des_decrypt(secret_key, s):
     iv = secret_key
     k = des(secret_key, CBC, iv, pad=None, padmode=PAD_PKCS5)
     de = k.decrypt(binascii.a2b_hex(s), padmode=PAD_PKCS5)
     return de
+#
+# secret_str = get_des_encrypt('12345678', 'I love YOU~')
+# print(secret_str)
+# clear_str = get_des_decrypt('12345678', secret_str)
+# print(clear_str)
+
+# ccc = get_hmac('sdfadf ','zhognguo','MD5')
+# print(ccc)
