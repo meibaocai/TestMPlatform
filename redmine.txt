@@ -63,7 +63,7 @@ TestMPlatform
     ```bash
         #再mycelery的根目录执行
         python manage.py celery -A mycelery.main worker --loglevel=info #启动worker
-        python manage.py celery beat --loglevel=info #启动定时任务监听器
+        python manage.py celery beat -A mycelery.main --loglevel=info #启动定时任务监听器
     ```
 
 

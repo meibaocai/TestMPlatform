@@ -935,4 +935,3 @@ def run_single_case(self, pid, case_id, *select_ds):
         else:
             return JsonResponse({"msg": "项目ID或者用例ID不能为空，请选择项目！", "code": 500})
 
-
