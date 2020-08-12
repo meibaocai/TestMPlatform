@@ -15,7 +15,7 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(minute=0, hour=2),
         # 定时任务三:每个月的１号的6:00启动，执行任务(refresh3)
         # 'schedule': crontab(hour=6, minute=0, day_of_month='1'),
-
+        #  pid:项目id, search_key：搜索关键字, select_env：环境, select_service：服务, username：用户名
         'args': (25, '', '', '', 'meibaocai'),
     }
 }
