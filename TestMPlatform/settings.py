@@ -203,10 +203,10 @@ MEDIA_DIRS = (os.path.join(BASE_DIR, 'media'))
 
 EMAIL_HOST = "smtp.163.com"
 EMAIL_PORT = 25
-EMAIL_HOST_USER = "meibaocai@163.com"
-EMAIL_HOST_PASSWORD = "Blue.Mei@"
+EMAIL_HOST_USER = "xxxx@163.com"
+EMAIL_HOST_PASSWORD = "xxxx"
 EMAIL_USE_TLS = False
-EMAIL_FROM = "meibaocai@163.com"
+EMAIL_FROM = "xxxx@163.com"
 
 # # 异步任务队列Celery在Django中的使用配置
 BROKER_URL = 'amqp://yoho:yoho@192.168.102.45:5672/yoho'
