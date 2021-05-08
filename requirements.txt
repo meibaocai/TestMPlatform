@@ -47,7 +47,7 @@ DjangoUeditor==1.8.143
 docutils==0.14
 dwebsocket==0.4.2
 et-xmlfile==1.0.1
-eventlet==0.22.1
+eventlet==0.31.0
 Flask==0.12.2
 flower==0.9.2
 future==0.15.2
