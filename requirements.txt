@@ -118,7 +118,7 @@ tornado==5.1
 twisted==19.10.0
 txaio==18.8.1
 update==0.0.1
-urllib3==1.25.9
+urllib3==1.26.5
 wcwidth==0.1.8
 Werkzeug==0.12.2
 xlrd==0.9.3
