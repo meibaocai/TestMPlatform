@@ -28,7 +28,7 @@ cryptography==2.7
 daphne==2.3.0
 defusedxml==0.6.0
 diff-match-patch==20181111
-django==2.2.4
+django==2.2.22
 django-celery==3.2.2
 django-constance==2.5.0
 django-cors-headers==2.4.0
