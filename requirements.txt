@@ -82,7 +82,7 @@ openpyxl==2.6.3
 packaging==19.2
 paramiko==2.4.1
 ParamUnittest==0.2
-Pillow==6.1.0
+Pillow==9.0.0
 pluggy==0.13.1
 psutil==5.4.1
 py==1.8.1
