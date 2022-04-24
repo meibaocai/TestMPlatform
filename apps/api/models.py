@@ -11,8 +11,8 @@ from DjangoUeditor.models import UEditorField
 # Api CI环境
 class EnvInfo(models.Model):
     env_name = models.CharField(max_length=20, verbose_name="环境名称",default="")
-    base_url = models.CharField(max_length=50,verbose_name="base_url",null=False)
-    belong_project = models.ForeignKey(ProjectInfo,verbose_name="所属项目",on_delete=models.CASCADE)
+    base_url = models.CharField(max_length=50, verbose_name="base_url",null=False)
+    belong_project = models.ForeignKey(ProjectInfo, verbose_name="所属项目",on_delete=models.CASCADE)
     desc = models.CharField(max_length=50, verbose_name="环境描述",default="")
     add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
 
@@ -126,7 +126,7 @@ class RunApiPlanInfo(models.Model):
 # CI执行记录
 class RunApiResultInfo(models.Model):
     api_name = models.CharField(max_length=50, verbose_name="API执行记录名称", default="")
-    type = models.CharField(verbose_name="类型", choices=(("1", "单个"), ("2", "批量")), max_length=10, default="1")
+    type = models.CharField(verbose_name="类型", choices=(("1", "单个"), ("2", "批量"),  ("3", "初始化全局参数")), max_length=10, default="1")
     run_batch = models.CharField(max_length=50, verbose_name="运行批次号", default="")
     belong_project_id = models.CharField(verbose_name="关联项目ID", max_length=50, null=False)
     related_case = models.ForeignKey(ApiCaseInfo, verbose_name="关联用例ID", null=True, db_constraint=False, on_delete=models.SET_NULL)

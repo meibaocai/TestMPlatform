@@ -1,0 +1,104 @@
+
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    首页-测试管理平台
+{% endblock %}
+
+
+{% block page_title %}
+    <ul class="breadcrumb">
+
+        <li>
+
+            <i class="icon-home"></i>
+
+            <a href="/index">Home</a>
+
+            <i class="icon-angle-right"></i>
+
+        </li>
+
+        <li><a href="{% url 'api:InitGlobalParameter' %}">API自动化 >初始化全局参数结果</a></li>
+
+    </ul>
+{% endblock %}
+
+{% block contend %}
+    <div class="portlet-body"  id="InitGlobalParameterList" style="" >
+            {% csrf_token %}
+    <div class="span12 btn-group" style="">
+
+        <div class="span4" style=" height:650px" >
+
+
+            <ul class="ver-inline-menu tabbable margin-bottom-10" style=" height:600px">
+                {% for result in pages %}
+                    {% if result.status == '1' %}
+                        <li class="text-success"><a href="#" data-toggle="tab" onclick="SingleResultDetail({{ result.id|safe }})"><i class="icon-group"></i> <font size="3" color="green">【{{ result.get_status_display|safe }}】{{ result.api_name }}</font></a></li>
+                    {% else %}
+                        <li class="text-error"><a href="#" data-toggle="tab" onclick="SingleResultDetail({{ result.id|safe }})"><i class="icon-group"></i> <font size="3" color="red" >【{{ result.get_status_display|safe }}】{{ result.api_name }}</font></a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <table class="table">
+                <ul class="breadcrumb">
+                    {% if pages.has_previous %}
+                        <li class="long">
+                            <a href="?page_num={{ pages.previous_page_number }}">上一页</a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in pages.paginator.page_range %}
+                        <li {% if num == pages.number %}class="active" {% endif %}><a href="?page_num={{ num }}">{{ num }}</a></li>
+                    {% endfor %}
+
+                    {% if pages.has_next %}
+                        <li class="long" >
+                            <a href="?page_num={{ pages.next_page_number }}">下一页</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </table>
+
+        </div>
+
+        <div class="span8" style="" >
+
+                <div  id="SingleResultDetail" class="portlet-body" style=" display: none;overflow:scroll; height:650px;">
+
+            </div>
+
+        </div>
+
+        <!--end span9-->
+
+    </div>
+
+</div>
+    {% endblock %}
+{% block myjs %}
+    <script>
+
+    function SingleResultDetail(id) {
+        $.ajax({
+            type: 'post',
+            url: '/api/SingleResultDetail/',
+            data: {
+                "Result_id": id,
+            },
+            timeout: 5000, //超时时间设置，单位毫秒
+            beforeSend:function(xhr, settings){xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");},
+            success: function (res) {
+
+                $("#SingleResultDetail").html(res);
+                $("#SingleResultDetail").show();
+                //window.location.reload()
+            }
+        });
+
+    }
+</script>
+{% endblock %}

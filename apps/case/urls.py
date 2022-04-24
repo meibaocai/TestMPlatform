@@ -22,7 +22,7 @@ from case.views import CaseListView,AddCaseView,ModifyCaseView,DelCaseView,Versi
     AddVersionCaseView,ModifyVersionCaseView,DelVersionCaseView,TestCaseSuitListView,AddTestCaseSuitView,\
     ModifyTestCaseSuitView,MyTestCaseSuitListView,MyTestCaseSuitDetailView,SuitCaseDetailView,\
     DelTestCaseSuitListView,StopTestCaseSuitListView,ChangeSuitCaseStatusView,ChangeSuitCaseDetailView,TestCaseSuitMonitorView\
-    ,XMindCaseListView,AddXMindCaseView,ModifyXMindCaseView,XMindCaseDetailView,DelXMindCaseView,SearchXMindCaseView,IntoProductCaseView
+    ,XMindCaseListView,AddXMindCaseView,ModifyXMindCaseView,XMindCaseDetailView,DelXMindCaseView, SearchXMindCaseView, IntoProductCaseView, ImportVersionCaseView
 urlpatterns = [
     url(r'CaseList$', CaseListView.as_view(), name='CaseList'),
     url(r'AddCase$', AddCaseView.as_view(), name='AddCase'),
@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'VersionCList$', VersionCaseListView.as_view(), name='VersionCList'),
     url(r'AddVersionCase$', AddVersionCaseView.as_view(), name='AddVersionCase'),
     url(r'IntoProductCase$', IntoProductCaseView.as_view(), name='IntoProductCase'),
+    url(r'ImportVersionCase$', ImportVersionCaseView.as_view(), name='ImportVersionCase'),
     url(r'ModifyVersionCase$', ModifyVersionCaseView.as_view(), name='ModifyVersionCase'),
     url(r'DelVersionCase$', DelVersionCaseView.as_view(), name='DelVersionCase'),
     url(r'TestCaseSuitList$', TestCaseSuitListView.as_view(), name='TestCaseSuitList'),

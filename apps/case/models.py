@@ -38,16 +38,43 @@ class TestCase(models.Model):
     def __srt__(self):
         return self.name
 
+
+# 产品库用例临时表
+class TestCase_tmp(models.Model):
+    name = models.CharField(max_length=50, verbose_name="用例主题", default="")
+    parent_id = models.IntegerField(verbose_name='父目录', null=True)
+    # parent_area = models.ForeignKey('self', verbose_name='父目录', null=True, blank=True, related_name='children',on_delete=models.CASCADE)
+    jb = models.CharField(verbose_name="用例级别", choices=(("level0", "level0"), ("level1", "level1"), ("level2", "level2"), ("level3", "level3"), ("level4", "level4")), max_length=10, default="level1")
+    precondition = models.CharField(max_length=2000, verbose_name="预置条件", default="")
+    operation = models.CharField(max_length=2000, verbose_name="操作步骤",default="")
+    expect_result = models.CharField(max_length=2000, verbose_name="期望结果",default="")
+    case_desc = models.CharField(max_length=2000, verbose_name="用例备注", default="")
+    designer = models.CharField(max_length=50, verbose_name="设计者", default="")
+    modifier = models.CharField(max_length=50, verbose_name="修改者", default="")
+    add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
+    update_time = models.DateTimeField(default=timezone.now, verbose_name="修改时间")
+    status = models.CharField(verbose_name="用例状态", choices=(("0", "删除"), ("1", "正常")), max_length=5, default="1")
+    type = models.CharField(verbose_name="类型", choices=(("ml", "目录"), ("yl", "用例")), max_length=5, default="")
+    belong_project = models.ForeignKey(ProjectInfo, verbose_name=u"所属项目", null=True, db_constraint=False, on_delete=models.SET_NULL)
+    import_batch = models.CharField(max_length=50, verbose_name="导入批次号", default="")
+
+    class Meta:
+        verbose_name = "产品库用例临时表"
+        verbose_name_plural = verbose_name
+
+    def __srt__(self):
+        return self.name
+
 # 普通版本库用例
 class VersionCase(models.Model):
     name = models.CharField(max_length=50, verbose_name="用例主题", default="")
     parent_id = models.IntegerField(verbose_name='父目录', null=True)
     # parent_area = models.CharField(verbose_name='父目录',max_length=10, null=True, blank=True,default='')
     jb = models.CharField(verbose_name="用例级别", choices=(("level0", "level0"), ("level1", "level1"), ("level2", "level2"), ("level3", "level3"), ("level4", "level4")), max_length=10, default="level1")
-    precondition = models.CharField(max_length=200, verbose_name="预置条件", default="")
-    operation = models.CharField(max_length=200, verbose_name="操作步骤",default="")
-    expect_result = models.CharField(max_length=200, verbose_name="期望结果",default="")
-    case_desc = models.CharField(max_length=200, verbose_name="用例备注", default="")
+    precondition = models.CharField(max_length=2000, verbose_name="预置条件", default="")
+    operation = models.CharField(max_length=2000, verbose_name="操作步骤",default="")
+    expect_result = models.CharField(max_length=2000, verbose_name="期望结果",default="")
+    case_desc = models.CharField(max_length=2000, verbose_name="用例备注", default="")
     designer = models.CharField(max_length=50, verbose_name="设计者", default="")
     modifier = models.CharField(max_length=50, verbose_name="修改者", default="")
     add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
@@ -67,6 +94,32 @@ class VersionCase(models.Model):
     def __srt__(self):
         return self.name
 
+
+# 普通版本库用例临时表
+class VersionCase_tmp(models.Model):
+    name = models.CharField(max_length=50, verbose_name="用例主题", default="")
+    parent_id = models.IntegerField(verbose_name='父目录', null=True)
+    jb = models.CharField(verbose_name="用例级别", choices=(("level0", "level0"), ("level1", "level1"), ("level2", "level2"), ("level3", "level3"), ("level4", "level4")), max_length=10, default="level1")
+    precondition = models.CharField(max_length=2000, verbose_name="预置条件", default="")
+    operation = models.CharField(max_length=2000, verbose_name="操作步骤",default="")
+    expect_result = models.CharField(max_length=2000, verbose_name="期望结果",default="")
+    case_desc = models.CharField(max_length=2000, verbose_name="用例备注", default="")
+    designer = models.CharField(max_length=50, verbose_name="设计者", default="")
+    modifier = models.CharField(max_length=50, verbose_name="修改者", default="")
+    add_time = models.DateTimeField(default=timezone.now, verbose_name="添加时间")
+    update_time = models.DateTimeField(default=timezone.now, verbose_name="修改时间")
+    status = models.CharField(verbose_name="用例状态", choices=(("0", "删除"), ("1", "正常")), max_length=5, default="1")
+    type = models.CharField(verbose_name="类型", choices=(("ml", "目录"), ("yl", "用例")), max_length=5, default="")
+    p_case_id = models.IntegerField(verbose_name="关联产品用例库的id", null=True)
+    belong_version = models.ForeignKey(VersionInfo, verbose_name=u"所属版本", on_delete=models.CASCADE)
+    run_batch = models.CharField(max_length=50, verbose_name="导入批次号", default="")
+
+    class Meta:
+        verbose_name = "用例信息"
+        verbose_name_plural = verbose_name
+
+    def __srt__(self):
+        return self.name
 # 执行集
 class TestCaseSuit(models.Model):
     belong_version = models.ForeignKey(VersionInfo, verbose_name="所属版本", on_delete=models.CASCADE)

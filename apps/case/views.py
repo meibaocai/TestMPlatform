@@ -4,15 +4,18 @@ from django.shortcuts import render_to_response
 from django.shortcuts import render,HttpResponseRedirect,HttpResponse
 from django.views.generic.base import View
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from manager.models import ProjectInfo,VersionInfo,ServiceInfo
-from case.models import TestCase,VersionCase,TestCaseSuit,TestCaseSuitDetail,XMindCase
-from case.forms import AddXMindCaseForm,ModifyXMindCaseForm,XMindCaseDetailForm
+from manager.models import ProjectInfo,VersionInfo, ServiceInfo
+from case.models import TestCase,VersionCase,TestCaseSuit, TestCaseSuitDetail,XMindCase
+from case.forms import AddXMindCaseForm,ModifyXMindCaseForm, XMindCaseDetailForm
 from requirement.models import RequirementInfo
 from users.models import UserProfile
 from mptt.models import MPTTModel
 from django.db.models import Q
 from django.urls import reverse
 from django.http import JsonResponse
+import xlrd
+from django.db import transaction
+
 import operator
 from functools import reduce
 import json
@@ -257,7 +260,7 @@ class AddVersionCaseView(View):
             parent_area = int(request.POST.get("pId", ""))
             type = request.POST.get("type","")
             designer = request.user.username
-            if type == 'ml'and parent_area > 0:
+            if type == 'ml' and parent_area > 0:
                 # print(parent_area,type,name)
                 case_info.name = name
                 case_info.type = type
@@ -1017,3 +1020,48 @@ class SearchXMindCaseView(View):
                     "code": 500,
                     "msg": "belong_project_id不存在",
             })
+
+# 导入用例_版本
+class ImportVersionCaseView(View):
+    def post(self,request):
+        version_id = int(request.COOKIES["v_id"])
+        if version_id != '':
+            # 操作外键的的时候，必须要先实例化外键对应的mode
+            belong_version_id = VersionInfo.objects.get(id=version_id)
+            case_info = VersionCase()
+            try:
+                with transaction.atomic():  # 事物
+                    # project_pk = request.POST.get("project_pk")  # 数据库使用字段
+                    excel = request.FILES.get('file')
+                    book = xlrd.open_workbook(filename=None, file_contents=excel.read(), encoding_override='utf-8')
+
+                    # 根据sheet索引或者名称获取sheet内容
+                    sheet = book.sheet_by_index(0)# sheet索引从0开始
+                    # sheet= book.sheet_by_name('sheet2')
+
+                    # sheet的名称，行数，列数
+                    # print(sheet.name, sheet.nrows, sheet.ncols)
+                    # 获取整行和整列的值（数组）
+                    # rows = sheet.row_values(3)  # 获取第四行内容
+                    # cols = list(set(sheet.col_values(0)[1:]))  # 获取第1列内容（用例的目录结构）,并且去重
+                    # 获取用例目录结构case_ml
+                    case_ml = sorted(set(sheet.col_values(0)[1:]), key=sheet.col_values(0)[1:].index)
+                    print(case_ml)
+                    mlList = []
+                    for c in case_ml:
+                        print(c)
+                        t = c.split('\\')
+                        print(len(t))
+                        mlList.append(t[0])
+                    print(mlList)
+
+                    for row in range(1, sheet.nrows):
+                        print(sheet.row_values(row))  # 这里取出来每行的数据，就可以写入到数据库了
+                    return JsonResponse({"msg": "ok", "code": 200})
+
+            except Exception as e:
+                print(e)
+                return JsonResponse({"msg": "上传文件类型有误，只支持 xls 和 xlsx 格式的 Excel文档", "code": 500})
+
+            return JsonResponse({"msg": "导入用例成功！", "code": 200})
+

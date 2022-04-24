@@ -1,4 +1,4 @@
-from django.test import TestCase
+# -!- coding: utf-8 -!-
 
 # Create your tests here.
 # a = {'alg': 'SALT_MD5', 'code': 200, 'data': {'guessTerms': [], 'hotTerms': [], 'defaultTerms': []},
@@ -8,8 +8,13 @@ from django.test import TestCase
 #     print("333333333")
 # else:
 #     print("44444444444")
+import os,sys
+a=123
+print(f'{a}')
 
-a = '1,2'
-
-b = a+ ','+ str(3)
-print(b)
+name = '宝元'
+age = 18
+sex = '男'
+msg = F'姓名：{name},性别：{age}，年龄：{sex}'  # 大写字母也可以
+msg = f'姓名：{name},性别：{age}，年龄：{sex}'
+print(msg)

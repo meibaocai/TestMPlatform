@@ -4,7 +4,7 @@ import json, jsonpath
 import time
 from django.db.models import Q
 from utils.Log import MyLog, Log
-from api.models import GlobalParameterInfo, ApiCaseInfo, OperationInfo
+from api.models import GlobalParameterInfo, ApiCaseInfo, OperationInfo, EnvInfo, RunApiResultInfo
 from case.models import VersionCase, TestCase, VersionInfo, ProjectInfo
 from utils import configHttp as ConfigHttp
 from datetime import datetime
@@ -92,22 +92,31 @@ def json_txt(dic_json):
             pass
 
 # 初始化全局参数中的用例类型param_type='3'的参数值
-def Init_GlobalParameter(self,pid):
+def Init_GlobalParameter(self,pid,search_key,select_env):
     # 初始化日志
+    print("项目pid:"+pid)
+    # 定义全局参数日志参数All_Init_GP_detail
+    All_Init_GP_detail = ''
+    # 定义运行批次号run_batch
+    run_batch = str(datetime.now().strftime("%Y%m%d%H%M%S"))
     log_name = 'init_gp_' + random_str(6) + '.log'
     log_batch = 'Init_GlobalParameter'
     self.log_init_gp = Log.get_log(log_name, log_batch, 'init_gp')
     self.logger_init_gp = self.log_init_gp.get_logger()
-    self.logger_init_gp.info("-------初始化全局参数开始！-------")
-    all_gparam = GlobalParameterInfo.objects.filter(Q(belong_project_id=pid) & Q(param_type='3'))
+    # self.logger_init_gp.info("-------初始化全局参数开始！-------")
+    all_gparam = GlobalParameterInfo.objects.filter(Q(name__icontains=search_key) & Q(belong_project_id=pid) & Q(param_type='3')).order_by("-add_time")
+    if select_env:
+        all_gparam=all_gparam.filter(belong_env=int(select_env))
     for obj in all_gparam:
+        start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         # 获取并打印用例类型param_type='3'的参数名称和参数内容
         gparam_name = obj.name
         gparam_content = eval(obj.param_content)
         # print("gparam_name:", gparam_name)
         # print("gparam_content:", obj.param_content)
         # print("gparam_content:", type(gparam_content))
-        self.logger_init_gp.info("gparam_name:" + gparam_name)
+
+        self.logger_init_gp.info("==========初始化参数:" + gparam_name + "开始==========")
         self.logger_init_gp.info("gparam_content:" + str(gparam_content))
         # 获取全局参数的关联的related_case_id
         related_case_id = obj.related_case.id
@@ -165,8 +174,26 @@ def Init_GlobalParameter(self,pid):
             self.logger_init_gp.info("send_url:" + send_url)
 
         else:
-            print("请求url不合法！")
-            self.logger_init_gp.error("请求url不合法！")
+            print("请求url不合法！或者为空！")
+            self.logger_init_gp.error("请求url不合法！或者为空！")
+            self.logger_init_gp.info("==========初始化参数:" + gparam_name + "结束==========\n")
+            # 获取当前参数的执行的日志，并传入到全局日志中
+            Init_GP_detail = self.log_init_gp.get_logContent()
+            All_Init_GP_detail = All_Init_GP_detail + "\n" + Init_GP_detail
+            # 清理日志
+            self.log_init_gp.clear_logContent()
+            # 初始化CI执行记录
+            end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            run_api_info = RunApiResultInfo()
+            run_api_info.belong_project_id = pid
+            run_api_info.api_name = obj.name
+            run_api_info.type = '3'
+            run_api_info.run_batch = run_batch
+            run_api_info.detail = Init_GP_detail
+            run_api_info.start_time = start_time
+            run_api_info.end_time = end_time
+            run_api_info.status = '0'
+            run_api_info.save()
             continue
 
         # 获取接口请求head
@@ -193,6 +220,24 @@ def Init_GlobalParameter(self,pid):
         else:
             print("请求body不合法！")
             self.logger_init_gp.error("请求body不合法！")
+            self.logger_init_gp.info("==========初始化参数:" + gparam_name + "结束==========\n")
+            # 获取当前参数的执行的日志，并传入到全局日志中
+            Init_GP_detail = self.log_init_gp.get_logContent()
+            All_Init_GP_detail = All_Init_GP_detail + "\n" + Init_GP_detail
+            # 清理日志
+            self.log_init_gp.clear_logContent()
+            # 初始化CI执行记录
+            end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            run_api_info = RunApiResultInfo()
+            run_api_info.belong_project_id = pid
+            run_api_info.api_name = obj.name
+            run_api_info.type = '3'
+            run_api_info.run_batch = run_batch
+            run_api_info.detail = Init_GP_detail
+            run_api_info.start_time = start_time
+            run_api_info.end_time = end_time
+            run_api_info.status = '0'
+            run_api_info.save()
             continue
 
         # 第三步：发送请求
@@ -201,6 +246,24 @@ def Init_GlobalParameter(self,pid):
         except Exception as err:
             # print("Time out!")
             self.logger_init_gp.error("Time out!")
+            self.logger_init_gp.info("==========初始化参数:" + gparam_name + "结束==========\n")
+            # 获取当前参数的执行的日志，并传入到全局日志中
+            Init_GP_detail = self.log_init_gp.get_logContent()
+            All_Init_GP_detail = All_Init_GP_detail + "\n" + Init_GP_detail
+            # 清理日志
+            self.log_init_gp.clear_logContent()
+            # 初始化CI执行记录
+            end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            run_api_info = RunApiResultInfo()
+            run_api_info.belong_project_id = pid
+            run_api_info.api_name = obj.name
+            run_api_info.type = '3'
+            run_api_info.run_batch = run_batch
+            run_api_info.detail = Init_GP_detail
+            run_api_info.start_time = start_time
+            run_api_info.end_time = end_time
+            run_api_info.status = '0'
+            run_api_info.save()
             continue
         # 获取响应消息体
         reps_data = json.loads(show_return_data(return_json))
@@ -232,7 +295,7 @@ def Init_GlobalParameter(self,pid):
             # 应该jsonpath取出来的是个list所以取list的第一个元素,即[0]
             if jsonpath.jsonpath(reps_data, gparme_path)[0]:
                 gparme_value = jsonpath.jsonpath(reps_data, gparme_path)[0]
-                print("gparme_value:",gparme_value)
+                print("gparme_value:", gparme_value)
 
             else:
                 gparme_value = ''
@@ -276,12 +339,30 @@ def Init_GlobalParameter(self,pid):
                 self.logger_init_gp.error("调用后置操作失败！")
             self.logger_init_gp.info("/n" + str(detail_opt_after) + "/n")
 
-    self.logger_init_gp.info("-------初始化全局参数结束！-------")
+        self.logger_init_gp.info("==========初始化参数:" + gparam_name + "结束==========\n")
+        # 获取当前参数的执行的日志，并传入到全局日志中
+        Init_GP_detail = self.log_init_gp.get_logContent()
+        All_Init_GP_detail = All_Init_GP_detail + "\n" + Init_GP_detail
+        # 清理日志
+        self.log_init_gp.clear_logContent()
 
-    Init_GP_detail = self.log_init_gp.get_logContent()
-    print("Init_GP_detail", Init_GP_detail)
+        # 初始化CI执行记录
+        end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        run_api_info = RunApiResultInfo()
+        run_api_info.belong_project_id = pid
+        run_api_info.api_name = obj.name
+        run_api_info.type = '3'
+        run_api_info.run_batch = run_batch
+        run_api_info.detail = Init_GP_detail
+        run_api_info.start_time = start_time
+        run_api_info.end_time = end_time
+        run_api_info.status = '1'
+        run_api_info.save()
+
+    # self.logger_init_gp.info("-------初始化全局参数结束！-------")
+    print("All_Init_GP_detail", All_Init_GP_detail)
     self.log_init_gp.remove_handler()
-    return Init_GP_detail
+    return All_Init_GP_detail
 
 # 初始化前后置操作，根据接口请求返回字典res_dict
 def run_opt(self, *opt_id):

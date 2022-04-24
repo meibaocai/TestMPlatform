@@ -53,6 +53,7 @@
                             <a id="CaseAdd_Button_version" class="btn green">新增 <i class="icon-plus"></i></a>
                             <a id="Caseinto_Button_version" class="btn green" style="margin-left: 10px;">用例引入 <i class="icon-plus"></i></a>
                             <a id="BackToProduct" class="btn green" style="margin-left: 10px;">用例归档 <i class="icon-plus"></i></a>
+                            <a id="CaseImport_version" class="btn blue" style="margin-left: 10px;">导入用例 <i class="icon-plus"></i></a>
 
                             <a href="#testAlert_version"  role="button" class="btn red"  data-toggle="modal" style="margin-left: 10px;">删除 <i class="icon-minus"></i></a>
                         </div>
@@ -180,6 +181,25 @@
         </div>
     </div>
 
+
+        <!-- 导入execl用例弹框 -->
+    <div id="import_case_version" class="modal hide fade modal-large in " tabindex="-1" role="dialog" aria-labelledby="modal-label-dialog_upload_filetestManage" aria-hidden="false" style="display: none;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"  onclick="closeDiv_version();"></button>
+            <h3 id="modal-label-dialog_upload_filetestManage">文件上传</h3>
+        </div>
+        <div class="modal-body"><p></p>
+
+            <form class="form-horizontal" enctype="multipart/form-data" action="/case/ImportVersionCase" method="post" >
+                {% csrf_token %}
+
+               <p> <input type="file" name="file" class="default"></p>
+                   <input type="submit"class="btn blue ok"  name="提交">
+            </form>
+            <span style="color: red">{{ msg }}</span>
+
+        </div>
+    </div>
 {% endblock %}
 
 
@@ -642,6 +662,12 @@
 
         });
 
+         //弹出导入库用例窗口
+    $('#CaseImport_version').click(function () {
+
+        $("#import_case_version").show();
+
+        });
         //新增用例
     function CaseAdd_version() {
                 //获取选中的ztree的节点id
@@ -755,10 +781,12 @@
             });
     });
 
-     //关闭新增&修改用例窗口
+     //关闭新增&修改用例&导入用例窗口
     function closeDiv_version() {
             document.getElementById("create_case_version").style.display="none";
             document.getElementById("case_into_version").style.display="none";
+            document.getElementById("import_case_version").style.display="none";
+
         }
 
         //刷新用例

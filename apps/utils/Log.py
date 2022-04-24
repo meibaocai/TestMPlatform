@@ -86,7 +86,7 @@ class Log:
     # 清除文件内容
     def clear_logContent(self):
         result_path = os.path.join(self.logPath, self.log_name)
-        with open("test.txt", 'r+') as file:
+        with open(result_path, 'r+') as file:
             try:
                 file.truncate(0)
             except FileNotFoundError as ex:
@@ -102,15 +102,14 @@ class Log:
             return lines
         except FileNotFoundError as ex:
             return self.logger.error(str(ex))
+
     # 获取文件内容
     def remove_handler(self):
         if self.log_type == 'run_opt':
             self.logger.removeHandler(self.handler_run_opt)
 
         elif self.log_type == 'init_gp':
-            # print("ggggggggggggg")
             self.logger.removeHandler(self.handler_init_gp)
-            # print("ttttttttttttt")
 
         elif self.log_type == 'run_single_case':
             self.logger.removeHandler(self.handler_run_single_case)

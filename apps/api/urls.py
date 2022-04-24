@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from api.views import EnvListView,AddEnvView,ModifyEnvView,DelEnvView,GlobalParameterListView,AddGlobalParameterView\
-    ,DelGlobalParameterView,ModifyGlobalParameterView,ApiCaseListView,DelApiCaseView,AddApiCaseView,ModifyApiCaseView,\
+    ,DelGlobalParameterView,ModifyGlobalParameterView, InitGlobalParameterView,GetInitPramLogView, ApiCaseListView,DelApiCaseView,AddApiCaseView,ModifyApiCaseView,\
     OperationListView,AddOperationView,ModifyOperationView,DelOperationView,RunSingleCaseView, RunAllCaseView, \
     RunApiResultListView, SingleResultDetailView, RunApiPlanInfoView, DelRunApiPlanView
 
@@ -31,6 +31,10 @@ urlpatterns = [
     url(r'GlobalParameterList$', GlobalParameterListView.as_view(), name='GlobalParameterList'),
     url(r'AddGlobalParameter$', AddGlobalParameterView.as_view(), name='AddGlobalParameter'),
     url(r'DelGlobalParameter$', DelGlobalParameterView.as_view(), name='DelGlobalParameter'),
+    url(r'InitGlobalParameter$', InitGlobalParameterView.as_view(), name='InitGlobalParameter'),
+    url(r'GetInitPramLog$', GetInitPramLogView.as_view(), name='GetInitPramLog'),
+
+
     url(r'ModifyGParam/(?P<param_id>.*)/$', ModifyGlobalParameterView.as_view(), name='ModifyGParam'),
     # API接口用例
     url(r'ApiCaseList$', ApiCaseListView.as_view(), name='ApiCaseList'),

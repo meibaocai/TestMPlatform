@@ -199,7 +199,10 @@ STATIC_ROOT=os.path.join(BASE_DIR,"/static/")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_DIRS = (os.path.join(BASE_DIR, 'media'))
+MEDIA_DIRS = os.path.join(BASE_DIR, 'media')
+
+# 文件上传配置
+UPLOAD_ROOT = os.path.join(BASE_DIR, 'upload')
 
 EMAIL_HOST = "smtp.163.com"
 EMAIL_PORT = 25

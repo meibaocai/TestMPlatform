@@ -64,7 +64,7 @@ TestMPlatform
         #再mycelery的根目录执行
         python manage.py celery -A mycelery.main worker --loglevel=info #启动worker
         python manage.py celery beat -A mycelery.main --loglevel=info #启动定时任务监听器
-         python manage.pycelery flower -A mycelery.main #启动任务监控后台
+         python manage.py celery flower -A mycelery.main #启动任务监控后台
     ```
 
 

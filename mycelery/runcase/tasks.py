@@ -28,12 +28,10 @@ def run_search_case(self, pid, search_key, select_env, select_service, username)
             init_gp_log = ''
             pre_opt_log = ''
             # 初始化全局参数
-            print("<-------------初始化全局参数 开始------------->")
             try:
                 init_gp_log = Init_GlobalParameter(self, pid)
             except Exception as err:
                 print("初始化全局参数失败！")
-            print("<-------------初始化全局参数 结束------------->")
             all_apicase = ApiCaseInfo.objects.filter(Q(belong_project_id=pid) & Q(type='1')).order_by("-add_time")
             # 按照关键字搜索
             if search_key:
@@ -513,7 +511,7 @@ def run_single_case(self, pid, case_id, *select_ds):
             result_info.delete()
             print("<-------------初始化全局参数 开始------------->")
             try:
-                init_gp_log = Init_GlobalParameter(self, pid)
+                init_gp_log = Init_GlobalParameter(self, pid, '', '')
             except Exception as err:
                 print("初始化全局参数失败！")
             print("<-------------初始化全局参数 结束------------->")
@@ -935,3 +933,24 @@ def run_single_case(self, pid, case_id, *select_ds):
         else:
             return JsonResponse({"msg": "项目ID或者用例ID不能为空，请选择项目！", "code": 500})
 
+# 初始化全局参数:
+@app.task(bind=True)
+def run_Init_GlobalParameter(self, pid, search_key, select_env):
+    if pid != '':
+        # 定义初始化全局参数和前置操作参数
+        init_gp_log = ''
+        # 初始化全局参数
+        print("<-------------初始化全局参数 开始------------->")
+        try:
+            # 清理之前的全局参数初始化记录
+            result_info = RunApiResultInfo.objects.filter(Q(belong_project_id=int(pid)) & Q(type='3'))
+            result_info.delete()
+
+            init_gp_log = Init_GlobalParameter(self, pid, search_key, select_env)
+            print(init_gp_log)
+        except Exception as err:
+            print("初始化全局参数失败！")
+
+        print("<-------------初始化全局参数 结束------------->")
+    else:
+        return JsonResponse({"msg": "项目ID不能为空，请选择项目！", "code": 500})

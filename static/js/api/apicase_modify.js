@@ -1,4 +1,4 @@
-        var csrftoken = getCookie("csrftoken");
+var csrftoken = getCookie("csrftoken");
   let $table_param = $('#table_param');
        let $add_param = $('#add_param');
        let $get_param = $('#get_param');
