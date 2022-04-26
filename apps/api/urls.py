@@ -14,12 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from api.views import EnvListView,AddEnvView,ModifyEnvView,DelEnvView,GlobalParameterListView,AddGlobalParameterView\
-    ,DelGlobalParameterView,ModifyGlobalParameterView, InitGlobalParameterView,GetInitPramLogView, ApiCaseListView,DelApiCaseView,AddApiCaseView,ModifyApiCaseView,\
-    OperationListView,AddOperationView,ModifyOperationView,DelOperationView,RunSingleCaseView, RunAllCaseView, \
-    RunApiResultListView, SingleResultDetailView, RunApiPlanInfoView, DelRunApiPlanView
-
-
+from api.views import EnvListView, AddEnvView,ModifyEnvView, DelEnvView, \
+    GlobalParameterListView, AddGlobalParameterView, DelGlobalParameterView, ModifyGlobalParameterView, \
+    InitGlobalParameterView, GetInitPramLogView, ApiCaseListView, DelApiCaseView, AddApiCaseView, ModifyApiCaseView,\
+    OperationListView, AddOperationView, ModifyOperationView, DelOperationView, RunOperationView, \
+    RunSingleCaseView, RunAllCaseView, RunApiResultListView, SingleResultDetailView, RunApiPlanInfoView, DelRunApiPlanView
 
 urlpatterns = [
     # 环境列表
@@ -33,8 +32,6 @@ urlpatterns = [
     url(r'DelGlobalParameter$', DelGlobalParameterView.as_view(), name='DelGlobalParameter'),
     url(r'InitGlobalParameter$', InitGlobalParameterView.as_view(), name='InitGlobalParameter'),
     url(r'GetInitPramLog$', GetInitPramLogView.as_view(), name='GetInitPramLog'),
-
-
     url(r'ModifyGParam/(?P<param_id>.*)/$', ModifyGlobalParameterView.as_view(), name='ModifyGParam'),
     # API接口用例
     url(r'ApiCaseList$', ApiCaseListView.as_view(), name='ApiCaseList'),
@@ -47,11 +44,11 @@ urlpatterns = [
     url(r'AddOperation$', AddOperationView.as_view(), name='AddOperation'),
     url(r'DelOperation$', DelOperationView.as_view(), name='DelOperation'),
     url(r'ModifyOperation/(?P<opt_id>.*)/$', ModifyOperationView.as_view(), name='ModifyOperation'),
+    url(r'RunOperation$',  RunOperationView.as_view(), name='RunOperation'),
+
     # 运行单个用例
     url(r'RunSingleCase/$', RunSingleCaseView.as_view(), name='RunSingleCase'),
-
     url(r'RunAllCase/$', RunAllCaseView.as_view(), name='RunAllCase'),
-
     url(r'RunApiResultList/$', RunApiResultListView.as_view(), name='RunApiResultList'),
     url(r'SingleResultDetail/$', SingleResultDetailView.as_view(), name='SingleResultDetail'),
     url(r'RunApiPlanInfo/$', RunApiPlanInfoView.as_view(), name='RunApiPlanInfo'),

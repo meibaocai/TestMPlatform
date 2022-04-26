@@ -668,7 +668,7 @@ class OperationListView(View):
             return render(request, 'api/Operation_list.html', {
                 "all_opts": all_opts,
                 "pages": pages,
-                "all_env":all_env,
+                "all_env": all_env,
                 "search_key": search_key,
                 "select_env":select_env,
                 "select_type": select_type,
@@ -679,7 +679,7 @@ class OperationListView(View):
                 "code": 500,
             })()
 
-    def post(self,request):
+    def post(self, request):
         # 从cookie中获取选中的项目id
         belong_project_id = request.COOKIES["p_id"]
         if belong_project_id != '':
@@ -809,7 +809,7 @@ class AddOperationView(View):
 
 # 修改前后置操作
 class ModifyOperationView(View):
-    def get(self,request,opt_id):
+    def get(self, request, opt_id):
         all_opts = OperationInfo.objects.get(id=int(opt_id))
         belong_project_id = request.COOKIES["p_id"]
         all_env = EnvInfo.objects.filter(belong_project=int(belong_project_id)).order_by("-add_time")
@@ -820,9 +820,9 @@ class ModifyOperationView(View):
             # 新增前后置操作的，只是取type='0'的用例
             all_apicase = ApiCaseInfo.objects.filter(Q(belong_project_id=belong_project_id) & Q(type='0')).order_by("-add_time")
             return render(request, "api/Operation_modify.html", {
-                "all_env":all_env,
-                "all_opts":all_opts,
-                "all_apicase":all_apicase
+                "all_env": all_env,
+                "all_opts": all_opts,
+                "all_apicase": all_apicase
             })
         else:
             return render(request, "api/Operation_modify.html", {
@@ -831,7 +831,7 @@ class ModifyOperationView(View):
                 "msg":"COOKIES中p_id不存在,请先选择项目！"
             })
 
-    def post(self,request,opt_id):
+    def post(self, request, opt_id):
         belong_project_id = request.COOKIES["p_id"]
         opts_info = OperationInfo.objects.get(id=int(opt_id))
         ModifyOpts_Form = ModifyoOptsForm(request.POST)
@@ -917,7 +917,7 @@ class ModifyOperationView(View):
                                   "code": 500
                             })
 
-# 删除全局参数
+# 删除前后置操作
 class DelOperationView(View):
     def post(self, request):
         opt_id = request.POST.get("opt_id", "")
@@ -927,10 +927,39 @@ class DelOperationView(View):
             all_opts.status = '0'
             all_opts.save()
             # print(all_service.status)
-            return JsonResponse({"msg": "删除成功","code": 200})
+            return JsonResponse({"msg": "删除成功", "code": 200})
         else:
             return JsonResponse({"msg": "删除失败，opt_id不存在！", "code": 500})
 
+# 调试前后置操作
+class RunOperationView(View):
+    def post(self, request):
+        start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        opt_id = request.POST.get("opt_id", "")
+        if opt_id:
+            (res_dict, detail_opt) = run_opt(self, opt_id)
+            end_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            return JsonResponse(
+                          {
+                              "msg": "执行完成！",
+                              "res_dict": str(res_dict),
+                              "detail_opt": detail_opt,
+                              "start_time": start_time,
+                              "end_time": end_time,
+                              "code": 200
+                          })
+
+        else:
+            return JsonResponse(
+                          {
+                              "msg": "执行完成！",
+                              "res_dict": '',
+                              "detail_opt": '',
+                               "start_time": start_time,
+                               "end_time": '',
+                               "code": 500
+                          })
+        # 第1步：获取请求URl
 # # 运行单个用例
 class RunSingleCaseView(View):
     def post(self, request):
@@ -991,12 +1020,11 @@ class RunApiPlanInfoView(View):
                 "msg": "项目ID不能为空！",
             })
 
-# 查看CI执行计划列表
+# 删除CI执行计划列表
 class DelRunApiPlanView(View):
     def post(self, request):
         if request.POST.get("plan_id", "") != '':
             plan_id = eval(request.POST.get("plan_id", ""))
-            # print("4444444444444444444:",plan_id)
             for pid in plan_id:
                 all_plan = RunApiPlanInfo.objects.get(id=int(pid))
                 run_batch = all_plan.run_batch
