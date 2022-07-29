@@ -72,7 +72,7 @@ locustio==0.8.1
 m2r==0.2.1
 MarkupPy==1.14
 MarkupSafe==1.0
-mistune==0.8.4
+mistune==2.0.3
 more-itertools==8.0.2
 msgpack-python==0.4.8
 mysqlclient==1.4.4
