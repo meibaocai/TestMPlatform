@@ -24,7 +24,7 @@ CommonMark==0.5.4
 configparser==3.5.0
 constantly==15.1.0
 crypto==1.4.1
-cryptography==2.7
+cryptography==39.0.1
 daphne==2.3.0
 defusedxml==0.6.0
 diff-match-patch==20181111
